@@ -1,0 +1,1024 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		170D4452199B9D3000077110 /* PEXGuiControllerDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 170D4451199B9D3000077110 /* PEXGuiControllerDecorator.m */; };
+		170D4457199BF89F00077110 /* PEXGuiTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 170D4456199BF89F00077110 /* PEXGuiTextController.m */; };
+		170D445A199BF90700077110 /* PEXGuiTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 170D4459199BF90700077110 /* PEXGuiTextView.m */; };
+		1712DBA019B1C3E90003C049 /* PEXTaskFakeEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 1712DB9F19B1C3E90003C049 /* PEXTaskFakeEvents.m */; };
+		1712DBA319B201B40003C049 /* PEXGuiDialogProgressCanceller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1712DBA219B201B40003C049 /* PEXGuiDialogProgressCanceller.m */; };
+		1712DBA519B204C50003C049 /* PEXGuiDialogUnaryVisitor.m in Resources */ = {isa = PBXBuildFile; fileRef = 1712DBA419B204C50003C049 /* PEXGuiDialogUnaryVisitor.m */; };
+		1712DBA719B209170003C049 /* PEXGuiDialogBinaryVisitor.m in Resources */ = {isa = PBXBuildFile; fileRef = 1712DBA619B209170003C049 /* PEXGuiDialogBinaryVisitor.m */; };
+		1712DBA819B218CD0003C049 /* PEXGuiDialogUnaryVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1712DBA419B204C50003C049 /* PEXGuiDialogUnaryVisitor.m */; };
+		1712DBA919B218D60003C049 /* PEXGuiDialogBinaryVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1712DBA619B209170003C049 /* PEXGuiDialogBinaryVisitor.m */; };
+		171BD21A198D2223001F5D9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 171BD217198D2223001F5D9E /* InfoPlist.strings */; };
+		171BD21C198D532A001F5D9E /* Unlocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 171BD21B198D532A001F5D9E /* Unlocalized.strings */; };
+		171BD227198D85AD001F5D9E /* portrait.plist in Resources */ = {isa = PBXBuildFile; fileRef = 171BD226198D85AD001F5D9E /* portrait.plist */; };
+		171BD232198E66DE001F5D9E /* light.plist in Resources */ = {isa = PBXBuildFile; fileRef = 171BD231198E66DE001F5D9E /* light.plist */; };
+		171DC5C619AB513100E41F8F /* PEXTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 171DC5C519AB513100E41F8F /* PEXTask.m */; };
+		171DC5D519ABC33200E41F8F /* PEXTaskEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 171DC5D419ABC33200E41F8F /* PEXTaskEvent.m */; };
+		171DC5D819ABC6D200E41F8F /* PEXTaskFake.m in Sources */ = {isa = PBXBuildFile; fileRef = 171DC5D719ABC6D200E41F8F /* PEXTaskFake.m */; };
+		171DC5DC19AC74AB00E41F8F /* PEXGuiProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171DC5DB19AC74AB00E41F8F /* PEXGuiProgressController.m */; };
+		171DC5DF19AC7C4900E41F8F /* PEXTestingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171DC5DE19AC7C4900E41F8F /* PEXTestingController.m */; };
+		1738512A19A125FD005B0924 /* PEXGuiDialogCloser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1738512919A125FD005B0924 /* PEXGuiDialogCloser.m */; };
+		1738512F19A13431005B0924 /* PEXGuiWindowWithTitleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1738512E19A13431005B0924 /* PEXGuiWindowWithTitleController.m */; };
+		176110B719B06B840042BF8C /* PEXGuiProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 176110B619B06B840042BF8C /* PEXGuiProgressBar.m */; };
+		1767182819BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 1767182719BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.m */; };
+		1767183419BB7B6B00FF43E7 /* PEXGuiUserAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1767183319BB7B6B00FF43E7 /* PEXGuiUserAction.m */; };
+		1767183919BB87DA00FF43E7 /* PEXGuiButtonUserAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1767183819BB87DA00FF43E7 /* PEXGuiButtonUserAction.m */; };
+		176F0FE919A276C400742E2D /* PEXGuiDialogBinaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 176F0FE819A276C400742E2D /* PEXGuiDialogBinaryController.m */; };
+		176F0FEF19A27ED600742E2D /* PEXGuiDialogDoubleCloser.m in Sources */ = {isa = PBXBuildFile; fileRef = 176F0FEE19A27ED600742E2D /* PEXGuiDialogDoubleCloser.m */; };
+		1773908319BCADF600954D08 /* PEXGuiBackgroundNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1773908219BCADF600954D08 /* PEXGuiBackgroundNavigationView.m */; };
+		177E53F01989579900715582 /* PEXGuiTextFIeld.m in Sources */ = {isa = PBXBuildFile; fileRef = 177E53EF1989579900715582 /* PEXGuiTextFIeld.m */; };
+		177E53F319895BC900715582 /* PEXGuiViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 177E53F219895BC900715582 /* PEXGuiViewUtils.m */; };
+		177E53F619896D1A00715582 /* PEXGuiBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 177E53F519896D1A00715582 /* PEXGuiBackgroundView.m */; };
+		1781315A1991434100E73E15 /* log16.png in Resources */ = {isa = PBXBuildFile; fileRef = 178131561991434100E73E15 /* log16.png */; };
+		1781315B1991434100E73E15 /* log32.png in Resources */ = {isa = PBXBuildFile; fileRef = 178131571991434100E73E15 /* log32.png */; };
+		1781315C1991434100E73E15 /* log48.png in Resources */ = {isa = PBXBuildFile; fileRef = 178131581991434100E73E15 /* log48.png */; };
+		1781315D1991434100E73E15 /* log64.png in Resources */ = {isa = PBXBuildFile; fileRef = 178131591991434100E73E15 /* log64.png */; };
+		178131601991481F00E73E15 /* PEXGuiImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1781315F1991481F00E73E15 /* PEXGuiImageView.m */; };
+		1781316219914D2D00E73E15 /* log128.png in Resources */ = {isa = PBXBuildFile; fileRef = 1781316119914D2D00E73E15 /* log128.png */; };
+		1782BE8D19BC83940089B173 /* PEXGuiNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1782BE8C19BC83940089B173 /* PEXGuiNavigationController.m */; };
+		1782BE9119BC9BDD0089B173 /* PEXPaddingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1782BE9019BC9BDD0089B173 /* PEXPaddingLabel.m */; };
+		1782BE9519BCA7420089B173 /* PEXGuiNavigationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1782BE9419BCA7420089B173 /* PEXGuiNavigationLabel.m */; };
+		1790C8B91996342B0056FC55 /* PEXGuiWindowMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1790C8B81996342B0056FC55 /* PEXGuiWindowMainView.m */; };
+		1790C8BF19963C4B0056FC55 /* PEXGuiClassicLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1790C8BE19963C4B0056FC55 /* PEXGuiClassicLabel.m */; };
+		1790F0C219823A6F00B169CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0C119823A6F00B169CF /* Foundation.framework */; };
+		1790F0C419823A6F00B169CF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0C319823A6F00B169CF /* CoreGraphics.framework */; };
+		1790F0C619823A6F00B169CF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0C519823A6F00B169CF /* UIKit.framework */; };
+		1790F0CE19823A6F00B169CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1790F0CD19823A6F00B169CF /* main.m */; };
+		1790F0D219823A6F00B169CF /* PEXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1790F0D119823A6F00B169CF /* PEXAppDelegate.m */; };
+		1790F0E419823A7000B169CF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0E319823A7000B169CF /* XCTest.framework */; };
+		1790F0E519823A7000B169CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0C119823A6F00B169CF /* Foundation.framework */; };
+		1790F0E619823A7000B169CF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1790F0C519823A6F00B169CF /* UIKit.framework */; };
+		1790F0F019823A7000B169CF /* PhonexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1790F0EF19823A7000B169CF /* PhonexTests.m */; };
+		1791610B199A8538004CD8F1 /* PEXGuiButtonDialogFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1791610A199A8538004CD8F1 /* PEXGuiButtonDialogFirst.m */; };
+		17A349FA19B7A1EE00769F31 /* PEXGuiCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A349F919B7A1EE00769F31 /* PEXGuiCallController.m */; };
+		17A4661319991670002EF3BB /* PEXGuiDialogUnaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4661219991670002EF3BB /* PEXGuiDialogUnaryController.m */; };
+		17A4661719992974002EF3BB /* PEXGuiButtonMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4661619992974002EF3BB /* PEXGuiButtonMain.m */; };
+		17A4662119992EC6002EF3BB /* PEXResColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4661A19992EC6002EF3BB /* PEXResColors.m */; };
+		17A4662219992EC6002EF3BB /* PEXResStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4661D19992EC6002EF3BB /* PEXResStrings.m */; };
+		17A4662319992EC6002EF3BB /* PEXResValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4662019992EC6002EF3BB /* PEXResValues.m */; };
+		17A46628199932AB002EF3BB /* PEXGuiWindowTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A46627199932AB002EF3BB /* PEXGuiWindowTitle.m */; };
+		17A82227198ACBEE0074364A /* PEXGuiButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A82226198ACBEE0074364A /* PEXGuiButton.m */; };
+		17C4A57E1986A02200F0787F /* PEXGuiLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C4A57C1986A02200F0787F /* PEXGuiLogin.m */; };
+		17C4A5961986C54C00F0787F /* PEXGuiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C4A5951986C54C00F0787F /* PEXGuiController.m */; };
+		17CC3996198FC31A004E10DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17CC3995198FC31A004E10DC /* Images.xcassets */; };
+		17D92AFD19AE129500401960 /* PEXGuiWindowBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D92AFC19AE129500401960 /* PEXGuiWindowBackgroundView.m */; };
+		17E86EC019B8D00800EE0A16 /* PEXGuiImageClickableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E86EBF19B8D00800EE0A16 /* PEXGuiImageClickableView.m */; };
+		17E86EC319B8E2AE00EE0A16 /* PEXGuiViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E86EC219B8E2AE00EE0A16 /* PEXGuiViewRow.m */; };
+		17E86EC619B8F75400EE0A16 /* PEXGuiButtonWithImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E86EC519B8F75400EE0A16 /* PEXGuiButtonWithImage.m */; };
+		17F5C42B198B66B400884B14 /* PEXGuiBaseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F5C42A198B66B400884B14 /* PEXGuiBaseLabel.m */; };
+		17F9730019852EA40083245D /* PEXGuiWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F972FF19852EA40083245D /* PEXGuiWindowController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1790F0E719823A7000B169CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1790F0B619823A6F00B169CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1790F0BD19823A6F00B169CF;
+			remoteInfo = Phonex;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		170D4450199B9D3000077110 /* PEXGuiControllerDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiControllerDecorator.h; sourceTree = "<group>"; };
+		170D4451199B9D3000077110 /* PEXGuiControllerDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiControllerDecorator.m; sourceTree = "<group>"; };
+		170D4455199BF89F00077110 /* PEXGuiTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiTextController.h; sourceTree = "<group>"; };
+		170D4456199BF89F00077110 /* PEXGuiTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiTextController.m; sourceTree = "<group>"; };
+		170D4458199BF90700077110 /* PEXGuiTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiTextView.h; sourceTree = "<group>"; };
+		170D4459199BF90700077110 /* PEXGuiTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiTextView.m; sourceTree = "<group>"; };
+		1712DB9E19B1C3E90003C049 /* PEXTaskFakeEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXTaskFakeEvents.h; sourceTree = "<group>"; };
+		1712DB9F19B1C3E90003C049 /* PEXTaskFakeEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXTaskFakeEvents.m; sourceTree = "<group>"; };
+		1712DBA119B201B40003C049 /* PEXGuiDialogProgressCanceller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogProgressCanceller.h; sourceTree = "<group>"; };
+		1712DBA219B201B40003C049 /* PEXGuiDialogProgressCanceller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogProgressCanceller.m; sourceTree = "<group>"; };
+		1712DBA419B204C50003C049 /* PEXGuiDialogUnaryVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogUnaryVisitor.m; sourceTree = "<group>"; };
+		1712DBA619B209170003C049 /* PEXGuiDialogBinaryVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogBinaryVisitor.m; sourceTree = "<group>"; };
+		171BD218198D2223001F5D9E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		171BD21B198D532A001F5D9E /* Unlocalized.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Unlocalized.strings; sourceTree = "<group>"; };
+		171BD21D198D537B001F5D9E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		171BD226198D85AD001F5D9E /* portrait.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = portrait.plist; sourceTree = "<group>"; };
+		171BD231198E66DE001F5D9E /* light.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = light.plist; sourceTree = "<group>"; };
+		171DC5C419AB513100E41F8F /* PEXTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXTask.h; sourceTree = "<group>"; };
+		171DC5C519AB513100E41F8F /* PEXTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXTask.m; sourceTree = "<group>"; };
+		171DC5C719AB5BBA00E41F8F /* PEXTaskListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXTaskListener.h; sourceTree = "<group>"; };
+		171DC5CB19AB645D00E41F8F /* PEXTask_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXTask_Protected.h; sourceTree = "<group>"; };
+		171DC5D319ABC33200E41F8F /* PEXTaskEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXTaskEvent.h; sourceTree = "<group>"; };
+		171DC5D419ABC33200E41F8F /* PEXTaskEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXTaskEvent.m; sourceTree = "<group>"; };
+		171DC5D619ABC6D200E41F8F /* PEXTaskFake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXTaskFake.h; sourceTree = "<group>"; };
+		171DC5D719ABC6D200E41F8F /* PEXTaskFake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXTaskFake.m; sourceTree = "<group>"; };
+		171DC5D919ABC6F200E41F8F /* PEXTaskFake_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXTaskFake_Protected.h; sourceTree = "<group>"; };
+		171DC5DA19AC74AB00E41F8F /* PEXGuiProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiProgressController.h; sourceTree = "<group>"; };
+		171DC5DB19AC74AB00E41F8F /* PEXGuiProgressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiProgressController.m; sourceTree = "<group>"; };
+		171DC5DD19AC7C4900E41F8F /* PEXTestingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXTestingController.h; sourceTree = "<group>"; };
+		171DC5DE19AC7C4900E41F8F /* PEXTestingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXTestingController.m; sourceTree = "<group>"; };
+		173397DA199F490100FF2241 /* PEXGuiControllerDecorator_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiControllerDecorator_Protected.h; sourceTree = "<group>"; };
+		173397DB199F4F9300FF2241 /* PEXGuiWindowController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowController_Protected.h; sourceTree = "<group>"; };
+		173397DC199F501E00FF2241 /* PEXGuiDialogUnaryController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogUnaryController_Protected.h; sourceTree = "<group>"; };
+		1738512719A125A5005B0924 /* PEXGuiDialogUnaryVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogUnaryVisitor.h; sourceTree = "<group>"; };
+		1738512819A125FD005B0924 /* PEXGuiDialogCloser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogCloser.h; sourceTree = "<group>"; };
+		1738512919A125FD005B0924 /* PEXGuiDialogCloser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogCloser.m; sourceTree = "<group>"; };
+		1738512B19A126CD005B0924 /* PEXGuiDialogUnaryController_Friend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogUnaryController_Friend.h; sourceTree = "<group>"; };
+		1738512D19A13431005B0924 /* PEXGuiWindowWithTitleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowWithTitleController.h; sourceTree = "<group>"; };
+		1738512E19A13431005B0924 /* PEXGuiWindowWithTitleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiWindowWithTitleController.m; sourceTree = "<group>"; };
+		1738513019A134B9005B0924 /* PEXGuiWindowWithTitleController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowWithTitleController_Protected.h; sourceTree = "<group>"; };
+		176110B519B06B840042BF8C /* PEXGuiProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiProgressBar.h; sourceTree = "<group>"; };
+		176110B619B06B840042BF8C /* PEXGuiProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiProgressBar.m; sourceTree = "<group>"; };
+		1767181F19BA059800FF43E7 /* PEXGuiDialogUnaryVisitor_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogUnaryVisitor_Protected.h; sourceTree = "<group>"; };
+		1767182019BA06F700FF43E7 /* PEXGuiDialogBinaryVisitor_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogBinaryVisitor_Protected.h; sourceTree = "<group>"; };
+		1767182219BA352300FF43E7 /* PEXGuiButton_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiButton_Protected.h; sourceTree = "<group>"; };
+		1767182419BA3DD100FF43E7 /* PEXGuiController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiController_Protected.h; sourceTree = "<group>"; };
+		1767182519BA491300FF43E7 /* PEXGuiButtonWithImage_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonWithImage_Protected.h; sourceTree = "<group>"; };
+		1767182619BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonWithImageCall.h; sourceTree = "<group>"; };
+		1767182719BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiButtonWithImageCall.m; sourceTree = "<group>"; };
+		1767182C19BB17BB00FF43E7 /* PEXGuiStateChanger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiStateChanger.h; sourceTree = "<group>"; };
+		1767183219BB7B6B00FF43E7 /* PEXGuiUserAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEXGuiUserAction.h; path = ../PEXGuiUserAction.h; sourceTree = "<group>"; };
+		1767183319BB7B6B00FF43E7 /* PEXGuiUserAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEXGuiUserAction.m; path = ../PEXGuiUserAction.m; sourceTree = "<group>"; };
+		1767183719BB87DA00FF43E7 /* PEXGuiButtonUserAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonUserAction.h; sourceTree = "<group>"; };
+		1767183819BB87DA00FF43E7 /* PEXGuiButtonUserAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiButtonUserAction.m; sourceTree = "<group>"; };
+		176F0FE719A276C400742E2D /* PEXGuiDialogBinaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogBinaryController.h; sourceTree = "<group>"; };
+		176F0FE819A276C400742E2D /* PEXGuiDialogBinaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogBinaryController.m; sourceTree = "<group>"; };
+		176F0FEA19A279B100742E2D /* PEXGuiDialogBinaryVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogBinaryVisitor.h; sourceTree = "<group>"; };
+		176F0FEB19A27A9800742E2D /* PEXGuiDialogBinaryController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogBinaryController_Protected.h; sourceTree = "<group>"; };
+		176F0FEC19A27CB700742E2D /* PEXGuiDialogBinaryController_Friend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogBinaryController_Friend.h; sourceTree = "<group>"; };
+		176F0FED19A27ED600742E2D /* PEXGuiDialogDoubleCloser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogDoubleCloser.h; sourceTree = "<group>"; };
+		176F0FEE19A27ED600742E2D /* PEXGuiDialogDoubleCloser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogDoubleCloser.m; sourceTree = "<group>"; };
+		1773908119BCADF600954D08 /* PEXGuiBackgroundNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiBackgroundNavigationView.h; sourceTree = "<group>"; };
+		1773908219BCADF600954D08 /* PEXGuiBackgroundNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiBackgroundNavigationView.m; sourceTree = "<group>"; };
+		177E53EE1989579900715582 /* PEXGuiTextFIeld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiTextFIeld.h; sourceTree = "<group>"; };
+		177E53EF1989579900715582 /* PEXGuiTextFIeld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiTextFIeld.m; sourceTree = "<group>"; };
+		177E53F119895BC900715582 /* PEXGuiViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiViewUtils.h; sourceTree = "<group>"; };
+		177E53F219895BC900715582 /* PEXGuiViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiViewUtils.m; sourceTree = "<group>"; };
+		177E53F419896D1A00715582 /* PEXGuiBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiBackgroundView.h; sourceTree = "<group>"; };
+		177E53F519896D1A00715582 /* PEXGuiBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiBackgroundView.m; sourceTree = "<group>"; };
+		178131561991434100E73E15 /* log16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log16.png; sourceTree = "<group>"; };
+		178131571991434100E73E15 /* log32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log32.png; sourceTree = "<group>"; };
+		178131581991434100E73E15 /* log48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log48.png; sourceTree = "<group>"; };
+		178131591991434100E73E15 /* log64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log64.png; sourceTree = "<group>"; };
+		1781315E1991481F00E73E15 /* PEXGuiImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiImageView.h; sourceTree = "<group>"; };
+		1781315F1991481F00E73E15 /* PEXGuiImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiImageView.m; sourceTree = "<group>"; };
+		1781316119914D2D00E73E15 /* log128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log128.png; sourceTree = "<group>"; };
+		1782BE8B19BC83940089B173 /* PEXGuiNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiNavigationController.h; sourceTree = "<group>"; };
+		1782BE8C19BC83940089B173 /* PEXGuiNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiNavigationController.m; sourceTree = "<group>"; };
+		1782BE8E19BC97E30089B173 /* PEXGuiNavigationController_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXGuiNavigationController_Protected.h; sourceTree = "<group>"; };
+		1782BE8F19BC9BDD0089B173 /* PEXPaddingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXPaddingLabel.h; sourceTree = "<group>"; };
+		1782BE9019BC9BDD0089B173 /* PEXPaddingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXPaddingLabel.m; sourceTree = "<group>"; };
+		1782BE9219BCA1ED0089B173 /* PEXPaddingLabel_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXPaddingLabel_Protected.h; sourceTree = "<group>"; };
+		1782BE9319BCA7420089B173 /* PEXGuiNavigationLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiNavigationLabel.h; sourceTree = "<group>"; };
+		1782BE9419BCA7420089B173 /* PEXGuiNavigationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiNavigationLabel.m; sourceTree = "<group>"; };
+		1790C8B71996342B0056FC55 /* PEXGuiWindowMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowMainView.h; sourceTree = "<group>"; };
+		1790C8B81996342B0056FC55 /* PEXGuiWindowMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiWindowMainView.m; sourceTree = "<group>"; };
+		1790C8BD19963C4B0056FC55 /* PEXGuiClassicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiClassicLabel.h; sourceTree = "<group>"; };
+		1790C8BE19963C4B0056FC55 /* PEXGuiClassicLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiClassicLabel.m; sourceTree = "<group>"; };
+		1790F0BE19823A6F00B169CF /* Phonex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phonex.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1790F0C119823A6F00B169CF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1790F0C319823A6F00B169CF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1790F0C519823A6F00B169CF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1790F0C919823A6F00B169CF /* Phonex-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Phonex-Info.plist"; sourceTree = "<group>"; };
+		1790F0CD19823A6F00B169CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1790F0CF19823A6F00B169CF /* Phonex-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Phonex-Prefix.pch"; sourceTree = "<group>"; };
+		1790F0D019823A6F00B169CF /* PEXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PEXAppDelegate.h; sourceTree = "<group>"; };
+		1790F0D119823A6F00B169CF /* PEXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PEXAppDelegate.m; sourceTree = "<group>"; };
+		1790F0E219823A7000B169CF /* PhonexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1790F0E319823A7000B169CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1790F0EB19823A7000B169CF /* PhonexTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PhonexTests-Info.plist"; sourceTree = "<group>"; };
+		1790F0EF19823A7000B169CF /* PhonexTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhonexTests.m; sourceTree = "<group>"; };
+		17916109199A8538004CD8F1 /* PEXGuiButtonDialogFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonDialogFirst.h; sourceTree = "<group>"; };
+		1791610A199A8538004CD8F1 /* PEXGuiButtonDialogFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiButtonDialogFirst.m; sourceTree = "<group>"; };
+		17A349F819B7A1EE00769F31 /* PEXGuiCallController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiCallController.h; sourceTree = "<group>"; };
+		17A349F919B7A1EE00769F31 /* PEXGuiCallController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiCallController.m; sourceTree = "<group>"; };
+		17A4661119991670002EF3BB /* PEXGuiDialogUnaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiDialogUnaryController.h; sourceTree = "<group>"; };
+		17A4661219991670002EF3BB /* PEXGuiDialogUnaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiDialogUnaryController.m; sourceTree = "<group>"; };
+		17A4661519992974002EF3BB /* PEXGuiButtonMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonMain.h; sourceTree = "<group>"; };
+		17A4661619992974002EF3BB /* PEXGuiButtonMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiButtonMain.m; sourceTree = "<group>"; };
+		17A4661819992EC6002EF3BB /* PEXResColors_JustOnce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResColors_JustOnce.h; sourceTree = "<group>"; };
+		17A4661919992EC6002EF3BB /* PEXResColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResColors.h; sourceTree = "<group>"; };
+		17A4661A19992EC6002EF3BB /* PEXResColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXResColors.m; sourceTree = "<group>"; };
+		17A4661B19992EC6002EF3BB /* PEXResStrings_JustOnce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResStrings_JustOnce.h; sourceTree = "<group>"; };
+		17A4661C19992EC6002EF3BB /* PEXResStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResStrings.h; sourceTree = "<group>"; };
+		17A4661D19992EC6002EF3BB /* PEXResStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXResStrings.m; sourceTree = "<group>"; };
+		17A4661E19992EC6002EF3BB /* PEXResValues_JustOnce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResValues_JustOnce.h; sourceTree = "<group>"; };
+		17A4661F19992EC6002EF3BB /* PEXResValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXResValues.h; sourceTree = "<group>"; };
+		17A4662019992EC6002EF3BB /* PEXResValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXResValues.m; sourceTree = "<group>"; };
+		17A46626199932AB002EF3BB /* PEXGuiWindowTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowTitle.h; sourceTree = "<group>"; };
+		17A46627199932AB002EF3BB /* PEXGuiWindowTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiWindowTitle.m; sourceTree = "<group>"; };
+		17A82225198ACBEE0074364A /* PEXGuiButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButton.h; sourceTree = "<group>"; };
+		17A82226198ACBEE0074364A /* PEXGuiButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PEXGuiButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		17C4A57B1986A02200F0787F /* PEXGuiLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiLogin.h; sourceTree = "<group>"; };
+		17C4A57C1986A02200F0787F /* PEXGuiLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiLogin.m; sourceTree = "<group>"; };
+		17C4A5941986C54C00F0787F /* PEXGuiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiController.h; sourceTree = "<group>"; };
+		17C4A5951986C54C00F0787F /* PEXGuiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiController.m; sourceTree = "<group>"; };
+		17CC3995198FC31A004E10DC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		17D92AFB19AE129500401960 /* PEXGuiWindowBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowBackgroundView.h; sourceTree = "<group>"; };
+		17D92AFC19AE129500401960 /* PEXGuiWindowBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiWindowBackgroundView.m; sourceTree = "<group>"; };
+		17E86EBE19B8D00800EE0A16 /* PEXGuiImageClickableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiImageClickableView.h; sourceTree = "<group>"; };
+		17E86EBF19B8D00800EE0A16 /* PEXGuiImageClickableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiImageClickableView.m; sourceTree = "<group>"; };
+		17E86EC119B8E2AE00EE0A16 /* PEXGuiViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiViewRow.h; sourceTree = "<group>"; };
+		17E86EC219B8E2AE00EE0A16 /* PEXGuiViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiViewRow.m; sourceTree = "<group>"; };
+		17E86EC419B8F75400EE0A16 /* PEXGuiButtonWithImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiButtonWithImage.h; sourceTree = "<group>"; };
+		17E86EC519B8F75400EE0A16 /* PEXGuiButtonWithImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiButtonWithImage.m; sourceTree = "<group>"; };
+		17F5C429198B66B400884B14 /* PEXGuiBaseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiBaseLabel.h; sourceTree = "<group>"; };
+		17F5C42A198B66B400884B14 /* PEXGuiBaseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiBaseLabel.m; sourceTree = "<group>"; };
+		17F972FE19852EA40083245D /* PEXGuiWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEXGuiWindowController.h; sourceTree = "<group>"; };
+		17F972FF19852EA40083245D /* PEXGuiWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEXGuiWindowController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1790F0BB19823A6F00B169CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1790F0C419823A6F00B169CF /* CoreGraphics.framework in Frameworks */,
+				1790F0C619823A6F00B169CF /* UIKit.framework in Frameworks */,
+				1790F0C219823A6F00B169CF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1790F0DF19823A7000B169CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1790F0E419823A7000B169CF /* XCTest.framework in Frameworks */,
+				1790F0E619823A7000B169CF /* UIKit.framework in Frameworks */,
+				1790F0E519823A7000B169CF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		170D4453199BB4C600077110 /* Specific */ = {
+			isa = PBXGroup;
+			children = (
+				1767183619BB81DD00FF43E7 /* UserAction */,
+				17A349F719B7A1C100769F31 /* Call */,
+				17C4A57B1986A02200F0787F /* PEXGuiLogin.h */,
+				17C4A57C1986A02200F0787F /* PEXGuiLogin.m */,
+				171DC5DD19AC7C4900E41F8F /* PEXTestingController.h */,
+				171DC5DE19AC7C4900E41F8F /* PEXTestingController.m */,
+			);
+			path = Specific;
+			sourceTree = "<group>";
+		};
+		170D4454199BF84C00077110 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				177E53EE1989579900715582 /* PEXGuiTextFIeld.h */,
+				177E53EF1989579900715582 /* PEXGuiTextFIeld.m */,
+				170D4458199BF90700077110 /* PEXGuiTextView.h */,
+				170D4459199BF90700077110 /* PEXGuiTextView.m */,
+				170D4455199BF89F00077110 /* PEXGuiTextController.h */,
+				170D4456199BF89F00077110 /* PEXGuiTextController.m */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		1712DB9C19B1BEEB0003C049 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				1712DB9D19B1BF4A0003C049 /* Fake */,
+				171DC5C419AB513100E41F8F /* PEXTask.h */,
+				171DC5CB19AB645D00E41F8F /* PEXTask_Protected.h */,
+				171DC5C519AB513100E41F8F /* PEXTask.m */,
+				171DC5C719AB5BBA00E41F8F /* PEXTaskListener.h */,
+				171DC5D319ABC33200E41F8F /* PEXTaskEvent.h */,
+				171DC5D419ABC33200E41F8F /* PEXTaskEvent.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		1712DB9D19B1BF4A0003C049 /* Fake */ = {
+			isa = PBXGroup;
+			children = (
+				171DC5D619ABC6D200E41F8F /* PEXTaskFake.h */,
+				171DC5D719ABC6D200E41F8F /* PEXTaskFake.m */,
+				171DC5D919ABC6F200E41F8F /* PEXTaskFake_Protected.h */,
+				1712DB9E19B1C3E90003C049 /* PEXTaskFakeEvents.h */,
+				1712DB9F19B1C3E90003C049 /* PEXTaskFakeEvents.m */,
+			);
+			path = Fake;
+			sourceTree = "<group>";
+		};
+		171BD213198D21ED001F5D9E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				178B9720198FFF7500279B6E /* Images */,
+				171BD230198E66A7001F5D9E /* Colors */,
+				171BD225198D8570001F5D9E /* Values */,
+				171BD216198D2223001F5D9E /* Strings */,
+				17CC3995198FC31A004E10DC /* Images.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		171BD216198D2223001F5D9E /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				171BD217198D2223001F5D9E /* InfoPlist.strings */,
+				171BD21B198D532A001F5D9E /* Unlocalized.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		171BD21E198D5FC4001F5D9E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1712DB9C19B1BEEB0003C049 /* Task */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		171BD21F198D6026001F5D9E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				17A4661819992EC6002EF3BB /* PEXResColors_JustOnce.h */,
+				17A4661919992EC6002EF3BB /* PEXResColors.h */,
+				17A4661A19992EC6002EF3BB /* PEXResColors.m */,
+				17A4661B19992EC6002EF3BB /* PEXResStrings_JustOnce.h */,
+				17A4661C19992EC6002EF3BB /* PEXResStrings.h */,
+				17A4661D19992EC6002EF3BB /* PEXResStrings.m */,
+				17A4661E19992EC6002EF3BB /* PEXResValues_JustOnce.h */,
+				17A4661F19992EC6002EF3BB /* PEXResValues.h */,
+				17A4662019992EC6002EF3BB /* PEXResValues.m */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		171BD225198D8570001F5D9E /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				171BD226198D85AD001F5D9E /* portrait.plist */,
+			);
+			path = Values;
+			sourceTree = "<group>";
+		};
+		171BD230198E66A7001F5D9E /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				171BD231198E66DE001F5D9E /* light.plist */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		1767183519BB818200FF43E7 /* WithImage */ = {
+			isa = PBXGroup;
+			children = (
+				17E86EC419B8F75400EE0A16 /* PEXGuiButtonWithImage.h */,
+				1767182519BA491300FF43E7 /* PEXGuiButtonWithImage_Protected.h */,
+				17E86EC519B8F75400EE0A16 /* PEXGuiButtonWithImage.m */,
+			);
+			path = WithImage;
+			sourceTree = "<group>";
+		};
+		1767183619BB81DD00FF43E7 /* UserAction */ = {
+			isa = PBXGroup;
+			children = (
+				1767183219BB7B6B00FF43E7 /* PEXGuiUserAction.h */,
+				1767183319BB7B6B00FF43E7 /* PEXGuiUserAction.m */,
+				1767183719BB87DA00FF43E7 /* PEXGuiButtonUserAction.h */,
+				1767183819BB87DA00FF43E7 /* PEXGuiButtonUserAction.m */,
+			);
+			path = UserAction;
+			sourceTree = "<group>";
+		};
+		176F0FF019A28BAD00742E2D /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				1781315E1991481F00E73E15 /* PEXGuiImageView.h */,
+				1781315F1991481F00E73E15 /* PEXGuiImageView.m */,
+				17E86EBE19B8D00800EE0A16 /* PEXGuiImageClickableView.h */,
+				17E86EBF19B8D00800EE0A16 /* PEXGuiImageClickableView.m */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		176F0FF119A28BB900742E2D /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				177E53F419896D1A00715582 /* PEXGuiBackgroundView.h */,
+				177E53F519896D1A00715582 /* PEXGuiBackgroundView.m */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		176F0FF219A28BD300742E2D /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				17D92AFB19AE129500401960 /* PEXGuiWindowBackgroundView.h */,
+				17D92AFC19AE129500401960 /* PEXGuiWindowBackgroundView.m */,
+				1790C8B71996342B0056FC55 /* PEXGuiWindowMainView.h */,
+				1790C8B81996342B0056FC55 /* PEXGuiWindowMainView.m */,
+				17A46626199932AB002EF3BB /* PEXGuiWindowTitle.h */,
+				17A46627199932AB002EF3BB /* PEXGuiWindowTitle.m */,
+				1738512D19A13431005B0924 /* PEXGuiWindowWithTitleController.h */,
+				1738513019A134B9005B0924 /* PEXGuiWindowWithTitleController_Protected.h */,
+				1738512E19A13431005B0924 /* PEXGuiWindowWithTitleController.m */,
+				17F972FE19852EA40083245D /* PEXGuiWindowController.h */,
+				173397DB199F4F9300FF2241 /* PEXGuiWindowController_Protected.h */,
+				17F972FF19852EA40083245D /* PEXGuiWindowController.m */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
+		177570281997B15700B6E2BA /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				17916109199A8538004CD8F1 /* PEXGuiButtonDialogFirst.h */,
+				1791610A199A8538004CD8F1 /* PEXGuiButtonDialogFirst.m */,
+				17A4661119991670002EF3BB /* PEXGuiDialogUnaryController.h */,
+				173397DC199F501E00FF2241 /* PEXGuiDialogUnaryController_Protected.h */,
+				1738512B19A126CD005B0924 /* PEXGuiDialogUnaryController_Friend.h */,
+				17A4661219991670002EF3BB /* PEXGuiDialogUnaryController.m */,
+				176F0FE719A276C400742E2D /* PEXGuiDialogBinaryController.h */,
+				176F0FEB19A27A9800742E2D /* PEXGuiDialogBinaryController_Protected.h */,
+				176F0FEC19A27CB700742E2D /* PEXGuiDialogBinaryController_Friend.h */,
+				176F0FE819A276C400742E2D /* PEXGuiDialogBinaryController.m */,
+				1738512719A125A5005B0924 /* PEXGuiDialogUnaryVisitor.h */,
+				1767181F19BA059800FF43E7 /* PEXGuiDialogUnaryVisitor_Protected.h */,
+				1712DBA419B204C50003C049 /* PEXGuiDialogUnaryVisitor.m */,
+				176F0FEA19A279B100742E2D /* PEXGuiDialogBinaryVisitor.h */,
+				1767182019BA06F700FF43E7 /* PEXGuiDialogBinaryVisitor_Protected.h */,
+				1712DBA619B209170003C049 /* PEXGuiDialogBinaryVisitor.m */,
+				1738512819A125FD005B0924 /* PEXGuiDialogCloser.h */,
+				1738512919A125FD005B0924 /* PEXGuiDialogCloser.m */,
+				176F0FED19A27ED600742E2D /* PEXGuiDialogDoubleCloser.h */,
+				176F0FEE19A27ED600742E2D /* PEXGuiDialogDoubleCloser.m */,
+			);
+			path = Dialog;
+			sourceTree = "<group>";
+		};
+		1782BE8A19BC833F0089B173 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				1782BE8B19BC83940089B173 /* PEXGuiNavigationController.h */,
+				1782BE8E19BC97E30089B173 /* PEXGuiNavigationController_Protected.h */,
+				1782BE8C19BC83940089B173 /* PEXGuiNavigationController.m */,
+				1782BE9319BCA7420089B173 /* PEXGuiNavigationLabel.h */,
+				1782BE9419BCA7420089B173 /* PEXGuiNavigationLabel.m */,
+				1773908119BCADF600954D08 /* PEXGuiBackgroundNavigationView.h */,
+				1773908219BCADF600954D08 /* PEXGuiBackgroundNavigationView.m */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		178B9720198FFF7500279B6E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				1781316119914D2D00E73E15 /* log128.png */,
+				178131561991434100E73E15 /* log16.png */,
+				178131571991434100E73E15 /* log32.png */,
+				178131581991434100E73E15 /* log48.png */,
+				178131591991434100E73E15 /* log64.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		1790C8C019963CA00056FC55 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				17F5C429198B66B400884B14 /* PEXGuiBaseLabel.h */,
+				17F5C42A198B66B400884B14 /* PEXGuiBaseLabel.m */,
+				1790C8BD19963C4B0056FC55 /* PEXGuiClassicLabel.h */,
+				1790C8BE19963C4B0056FC55 /* PEXGuiClassicLabel.m */,
+				1782BE8F19BC9BDD0089B173 /* PEXPaddingLabel.h */,
+				1782BE9219BCA1ED0089B173 /* PEXPaddingLabel_Protected.h */,
+				1782BE9019BC9BDD0089B173 /* PEXPaddingLabel.m */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		1790F0B519823A6F00B169CF = {
+			isa = PBXGroup;
+			children = (
+				1790F0C719823A6F00B169CF /* Phonex */,
+				1790F0E919823A7000B169CF /* PhonexTests */,
+				1790F0C019823A6F00B169CF /* Frameworks */,
+				1790F0BF19823A6F00B169CF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1790F0BF19823A6F00B169CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1790F0BE19823A6F00B169CF /* Phonex.app */,
+				1790F0E219823A7000B169CF /* PhonexTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1790F0C019823A6F00B169CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1790F0C119823A6F00B169CF /* Foundation.framework */,
+				1790F0C319823A6F00B169CF /* CoreGraphics.framework */,
+				1790F0C519823A6F00B169CF /* UIKit.framework */,
+				1790F0E319823A7000B169CF /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1790F0C719823A6F00B169CF /* Phonex */ = {
+			isa = PBXGroup;
+			children = (
+				171BD213198D21ED001F5D9E /* Resource */,
+				17C4A5971986C82C00F0787F /* Source */,
+				1790F0C819823A6F00B169CF /* Supporting Files */,
+			);
+			path = Phonex;
+			sourceTree = "<group>";
+		};
+		1790F0C819823A6F00B169CF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1790F0C919823A6F00B169CF /* Phonex-Info.plist */,
+				1790F0CD19823A6F00B169CF /* main.m */,
+				1790F0CF19823A6F00B169CF /* Phonex-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1790F0E919823A7000B169CF /* PhonexTests */ = {
+			isa = PBXGroup;
+			children = (
+				1790F0EF19823A7000B169CF /* PhonexTests.m */,
+				1790F0EA19823A7000B169CF /* Supporting Files */,
+			);
+			path = PhonexTests;
+			sourceTree = "<group>";
+		};
+		1790F0EA19823A7000B169CF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1790F0EB19823A7000B169CF /* PhonexTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17A349F719B7A1C100769F31 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				1767182619BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.h */,
+				1767182719BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.m */,
+				17A349F819B7A1EE00769F31 /* PEXGuiCallController.h */,
+				17A349F919B7A1EE00769F31 /* PEXGuiCallController.m */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		17A466141999233D002EF3BB /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				1767183519BB818200FF43E7 /* WithImage */,
+				17A82225198ACBEE0074364A /* PEXGuiButton.h */,
+				1767182219BA352300FF43E7 /* PEXGuiButton_Protected.h */,
+				17A82226198ACBEE0074364A /* PEXGuiButton.m */,
+				17A4661519992974002EF3BB /* PEXGuiButtonMain.h */,
+				17A4661619992974002EF3BB /* PEXGuiButtonMain.m */,
+				17E86EC119B8E2AE00EE0A16 /* PEXGuiViewRow.h */,
+				17E86EC219B8E2AE00EE0A16 /* PEXGuiViewRow.m */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		17A4662419992EF6002EF3BB /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				171DC5DA19AC74AB00E41F8F /* PEXGuiProgressController.h */,
+				171DC5DB19AC74AB00E41F8F /* PEXGuiProgressController.m */,
+				176110B519B06B840042BF8C /* PEXGuiProgressBar.h */,
+				176110B619B06B840042BF8C /* PEXGuiProgressBar.m */,
+				1712DBA119B201B40003C049 /* PEXGuiDialogProgressCanceller.h */,
+				1712DBA219B201B40003C049 /* PEXGuiDialogProgressCanceller.m */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		17C4A5971986C82C00F0787F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				171BD21F198D6026001F5D9E /* Resource */,
+				1790F0D119823A6F00B169CF /* PEXAppDelegate.m */,
+				1790F0D019823A6F00B169CF /* PEXAppDelegate.h */,
+				171BD21E198D5FC4001F5D9E /* Core */,
+				17C71784198434D2007782C2 /* Gui */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		17C71784198434D2007782C2 /* Gui */ = {
+			isa = PBXGroup;
+			children = (
+				17A4662419992EF6002EF3BB /* Progress */,
+				176F0FF219A28BD300742E2D /* Window */,
+				176F0FF119A28BB900742E2D /* Background */,
+				176F0FF019A28BAD00742E2D /* Image */,
+				17A466141999233D002EF3BB /* Button */,
+				1790C8C019963CA00056FC55 /* Label */,
+				170D4454199BF84C00077110 /* Text */,
+				170D4453199BB4C600077110 /* Specific */,
+				177570281997B15700B6E2BA /* Dialog */,
+				1782BE8A19BC833F0089B173 /* Navigation */,
+				170D4450199B9D3000077110 /* PEXGuiControllerDecorator.h */,
+				173397DA199F490100FF2241 /* PEXGuiControllerDecorator_Protected.h */,
+				170D4451199B9D3000077110 /* PEXGuiControllerDecorator.m */,
+				17C4A5941986C54C00F0787F /* PEXGuiController.h */,
+				1767182419BA3DD100FF43E7 /* PEXGuiController_Protected.h */,
+				17C4A5951986C54C00F0787F /* PEXGuiController.m */,
+				1767182C19BB17BB00FF43E7 /* PEXGuiStateChanger.h */,
+				17F9730119853AB10083245D /* Utils */,
+			);
+			path = Gui;
+			sourceTree = "<group>";
+		};
+		17F9730119853AB10083245D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				177E53F119895BC900715582 /* PEXGuiViewUtils.h */,
+				177E53F219895BC900715582 /* PEXGuiViewUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1790F0BD19823A6F00B169CF /* Phonex */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1790F0F319823A7000B169CF /* Build configuration list for PBXNativeTarget "Phonex" */;
+			buildPhases = (
+				1790F0BA19823A6F00B169CF /* Sources */,
+				1790F0BB19823A6F00B169CF /* Frameworks */,
+				1790F0BC19823A6F00B169CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Phonex;
+			productName = Phonex;
+			productReference = 1790F0BE19823A6F00B169CF /* Phonex.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1790F0E119823A7000B169CF /* PhonexTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1790F0F619823A7000B169CF /* Build configuration list for PBXNativeTarget "PhonexTests" */;
+			buildPhases = (
+				1790F0DE19823A7000B169CF /* Sources */,
+				1790F0DF19823A7000B169CF /* Frameworks */,
+				1790F0E019823A7000B169CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1790F0E819823A7000B169CF /* PBXTargetDependency */,
+			);
+			name = PhonexTests;
+			productName = PhonexTests;
+			productReference = 1790F0E219823A7000B169CF /* PhonexTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1790F0B619823A6F00B169CF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PEX;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Matej Oravec";
+				TargetAttributes = {
+					1790F0E119823A7000B169CF = {
+						TestTargetID = 1790F0BD19823A6F00B169CF;
+					};
+				};
+			};
+			buildConfigurationList = 1790F0B919823A6F00B169CF /* Build configuration list for PBXProject "Phonex" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				sk,
+				de,
+				fr,
+			);
+			mainGroup = 1790F0B519823A6F00B169CF;
+			productRefGroup = 1790F0BF19823A6F00B169CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1790F0BD19823A6F00B169CF /* Phonex */,
+				1790F0E119823A7000B169CF /* PhonexTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1790F0BC19823A6F00B169CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				171BD21C198D532A001F5D9E /* Unlocalized.strings in Resources */,
+				1781316219914D2D00E73E15 /* log128.png in Resources */,
+				17CC3996198FC31A004E10DC /* Images.xcassets in Resources */,
+				1712DBA719B209170003C049 /* PEXGuiDialogBinaryVisitor.m in Resources */,
+				1781315D1991434100E73E15 /* log64.png in Resources */,
+				171BD227198D85AD001F5D9E /* portrait.plist in Resources */,
+				1781315B1991434100E73E15 /* log32.png in Resources */,
+				1781315C1991434100E73E15 /* log48.png in Resources */,
+				171BD232198E66DE001F5D9E /* light.plist in Resources */,
+				1712DBA519B204C50003C049 /* PEXGuiDialogUnaryVisitor.m in Resources */,
+				171BD21A198D2223001F5D9E /* InfoPlist.strings in Resources */,
+				1781315A1991434100E73E15 /* log16.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1790F0E019823A7000B169CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1790F0BA19823A6F00B169CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1712DBA919B218D60003C049 /* PEXGuiDialogBinaryVisitor.m in Sources */,
+				1712DBA819B218CD0003C049 /* PEXGuiDialogUnaryVisitor.m in Sources */,
+				1767182819BAF8D800FF43E7 /* PEXGuiButtonWithImageCall.m in Sources */,
+				17A4662119992EC6002EF3BB /* PEXResColors.m in Sources */,
+				1738512A19A125FD005B0924 /* PEXGuiDialogCloser.m in Sources */,
+				170D4452199B9D3000077110 /* PEXGuiControllerDecorator.m in Sources */,
+				178131601991481F00E73E15 /* PEXGuiImageView.m in Sources */,
+				17A4661719992974002EF3BB /* PEXGuiButtonMain.m in Sources */,
+				17A4662219992EC6002EF3BB /* PEXResStrings.m in Sources */,
+				1738512F19A13431005B0924 /* PEXGuiWindowWithTitleController.m in Sources */,
+				17A82227198ACBEE0074364A /* PEXGuiButton.m in Sources */,
+				1790F0CE19823A6F00B169CF /* main.m in Sources */,
+				1790F0D219823A6F00B169CF /* PEXAppDelegate.m in Sources */,
+				17E86EC019B8D00800EE0A16 /* PEXGuiImageClickableView.m in Sources */,
+				1712DBA019B1C3E90003C049 /* PEXTaskFakeEvents.m in Sources */,
+				171DC5D519ABC33200E41F8F /* PEXTaskEvent.m in Sources */,
+				17A46628199932AB002EF3BB /* PEXGuiWindowTitle.m in Sources */,
+				1767183919BB87DA00FF43E7 /* PEXGuiButtonUserAction.m in Sources */,
+				1712DBA319B201B40003C049 /* PEXGuiDialogProgressCanceller.m in Sources */,
+				17C4A5961986C54C00F0787F /* PEXGuiController.m in Sources */,
+				1790C8BF19963C4B0056FC55 /* PEXGuiClassicLabel.m in Sources */,
+				171DC5DC19AC74AB00E41F8F /* PEXGuiProgressController.m in Sources */,
+				1782BE9119BC9BDD0089B173 /* PEXPaddingLabel.m in Sources */,
+				170D445A199BF90700077110 /* PEXGuiTextView.m in Sources */,
+				1782BE8D19BC83940089B173 /* PEXGuiNavigationController.m in Sources */,
+				176F0FE919A276C400742E2D /* PEXGuiDialogBinaryController.m in Sources */,
+				1791610B199A8538004CD8F1 /* PEXGuiButtonDialogFirst.m in Sources */,
+				176F0FEF19A27ED600742E2D /* PEXGuiDialogDoubleCloser.m in Sources */,
+				1767183419BB7B6B00FF43E7 /* PEXGuiUserAction.m in Sources */,
+				171DC5C619AB513100E41F8F /* PEXTask.m in Sources */,
+				170D4457199BF89F00077110 /* PEXGuiTextController.m in Sources */,
+				1790C8B91996342B0056FC55 /* PEXGuiWindowMainView.m in Sources */,
+				17E86EC319B8E2AE00EE0A16 /* PEXGuiViewRow.m in Sources */,
+				17F9730019852EA40083245D /* PEXGuiWindowController.m in Sources */,
+				17A4661319991670002EF3BB /* PEXGuiDialogUnaryController.m in Sources */,
+				1782BE9519BCA7420089B173 /* PEXGuiNavigationLabel.m in Sources */,
+				17A349FA19B7A1EE00769F31 /* PEXGuiCallController.m in Sources */,
+				171DC5DF19AC7C4900E41F8F /* PEXTestingController.m in Sources */,
+				17F5C42B198B66B400884B14 /* PEXGuiBaseLabel.m in Sources */,
+				171DC5D819ABC6D200E41F8F /* PEXTaskFake.m in Sources */,
+				176110B719B06B840042BF8C /* PEXGuiProgressBar.m in Sources */,
+				177E53F319895BC900715582 /* PEXGuiViewUtils.m in Sources */,
+				177E53F01989579900715582 /* PEXGuiTextFIeld.m in Sources */,
+				17C4A57E1986A02200F0787F /* PEXGuiLogin.m in Sources */,
+				1773908319BCADF600954D08 /* PEXGuiBackgroundNavigationView.m in Sources */,
+				17E86EC619B8F75400EE0A16 /* PEXGuiButtonWithImage.m in Sources */,
+				17D92AFD19AE129500401960 /* PEXGuiWindowBackgroundView.m in Sources */,
+				17A4662319992EC6002EF3BB /* PEXResValues.m in Sources */,
+				177E53F619896D1A00715582 /* PEXGuiBackgroundView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1790F0DE19823A7000B169CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1790F0F019823A7000B169CF /* PhonexTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1790F0E819823A7000B169CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1790F0BD19823A6F00B169CF /* Phonex */;
+			targetProxy = 1790F0E719823A7000B169CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		171BD217198D2223001F5D9E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				171BD218198D2223001F5D9E /* en */,
+				171BD21D198D537B001F5D9E /* sk */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1790F0F119823A7000B169CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					..,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1790F0F219823A7000B169CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					..,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1790F0F419823A7000B169CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Phonex/Phonex-Prefix.pch";
+				INFOPLIST_FILE = "Phonex/Phonex-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1790F0F519823A7000B169CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Phonex/Phonex-Prefix.pch";
+				INFOPLIST_FILE = "Phonex/Phonex-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1790F0F719823A7000B169CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Phonex.app/Phonex";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Phonex/Phonex-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PhonexTests/PhonexTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1790F0F819823A7000B169CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Phonex.app/Phonex";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Phonex/Phonex-Prefix.pch";
+				INFOPLIST_FILE = "PhonexTests/PhonexTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1790F0B919823A6F00B169CF /* Build configuration list for PBXProject "Phonex" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1790F0F119823A7000B169CF /* Debug */,
+				1790F0F219823A7000B169CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1790F0F319823A7000B169CF /* Build configuration list for PBXNativeTarget "Phonex" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1790F0F419823A7000B169CF /* Debug */,
+				1790F0F519823A7000B169CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1790F0F619823A7000B169CF /* Build configuration list for PBXNativeTarget "PhonexTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1790F0F719823A7000B169CF /* Debug */,
+				1790F0F819823A7000B169CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1790F0B619823A6F00B169CF /* Project object */;
+}

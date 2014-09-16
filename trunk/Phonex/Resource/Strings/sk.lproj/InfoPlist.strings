@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Phonex
+
+  Created by Matej Oravec on 02/08/14.
+  Copyright (c) 2014 Matej Oravec. All rights reserved.
+*/
+"loremIpsum" = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean et est a dui semper facilisis. Pellentesque placerat elit a nunc. Nullam tortor odio, rutrum quis, egestas ut, posuere sed, felis. Vestibulum placerat feugiat nisl.";
+"username" = "username";
+"password" = "password";
+"welcome" = "welcome";
+"description" = "description";
+"login" = "login";

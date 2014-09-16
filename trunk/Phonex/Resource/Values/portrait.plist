@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>L_paddingMedium</key>
+	<integer>20</integer>
+	<key>contentMarginLarge</key>
+	<integer>20</integer>
+	<key>contentMarginMedium</key>
+	<integer>15</integer>
+	<key>contentMarginSmall</key>
+	<integer>10</integer>
+	<key>fontSizeSmall</key>
+	<integer>10</integer>
+	<key>fontSizeMedium</key>
+	<integer>15</integer>
+	<key>fontSizeLarge</key>
+	<integer>20</integer>
+	<key>B_imageButton_height</key>
+	<integer>100</integer>
+	<key>lineWidthSmall</key>
+	<integer>1</integer>
+	<key>B_stateAnimation</key>
+	<real>0.2</real>
+	<key>I_logoFromTopPadding</key>
+	<integer>60</integer>
+	<key>loginComponentsFromBottom</key>
+	<integer>35</integer>
+	<key>loginInfoFromBottom</key>
+	<integer>20</integer>
+	<key>distanceNormal</key>
+	<integer>10</integer>
+</dict>
+</plist>

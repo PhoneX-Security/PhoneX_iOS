@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7F967FD3-A2FA-477E-AAE6-FA0E3544A2E2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Phonex</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>85373133-5A16-4CB0-A074-D5829E833222</key>
+		<string>git2:phonexIOS</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>trunk/Phonex.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>85373133-5A16-4CB0-A074-D5829E833222</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>git2:phonexIOS</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>85373133-5A16-4CB0-A074-D5829E833222</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>85373133-5A16-4CB0-A074-D5829E833222</string>
+			<key>IDESourceControlWCCName</key>
+			<string>repo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
