@@ -1,0 +1,171 @@
+#################################################
+#
+# requirements:
+# - this file must be in root of the zrtp project
+# - OPENSSL to be set
+# - PJ_PROJECT to be set
+#
+#################################################
+
+MAKEFILE_PATH = $(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIR = $(abspath $(dir $(MAKEFILE_PATH)))
+
+ifndef BUILD_DIR
+$(error BUILD_DIR is not set)
+endif
+ifndef ARCH
+$(error ARCH is not set)
+endif
+ifndef OUTPUT_FILE_BASE
+$(error OUTPUT_FILE_BASE is not set)
+endif
+ifndef SRC_DIR
+$(error SRC_DIR is not set)
+endif
+ifndef AR
+$(error AR is not set)
+endif
+
+
+#
+# INCLUDES
+#
+
+ifndef OPENSSL
+$(error OPENSSL is not set)
+endif
+OPENSSL_INCLUDE = $(OPENSSL)/include
+INCLUDE = $(OPENSSL_INCLUDE)
+
+ifndef PJ_PROJECT
+$(error PJ_PROJECT is not set)
+endif
+PJ_PROJECT_SUBPROJECTS = pjsip pjlib-util pjlib pjmedia pjnath
+PJ_PROJECT_INCLUDE = $(foreach TEMP, $(PJ_PROJECT_SUBPROJECTS), $(PJ_PROJECT)/$(TEMP)/include)
+INCLUDE += $(PJ_PROJECT_INCLUDE)
+
+###
+#Does not need to be here beacause these headers are exported to C_INCLUDE_PATH  (system wide search needed)
+###
+ZRTP = $(SRC_DIR)
+ZRTP_SUBPROJECTS = zrtp zrtp/libzrtpcpp srtp
+ZRTP_INCLUDE = $(ZRTP)
+ZRTP_INCLUDE += $(foreach TEMP, $(ZRTP_SUBPROJECTS), $(ZRTP)/$(TEMP))
+INCLUDE += $(ZRTP_INCLUDE)
+
+#
+# IMPL FILES
+#
+
+### TWOFISH
+TWOFISH_PREFIX = $(SRC_DIR)/cryptcommon
+TWOFISH_FILES = twofish.c \
+                twofish_cfb.c
+TWOFISH_SRC = $(foreach TEMP, $(TWOFISH_FILES), $(TWOFISH_PREFIX)/$(TEMP))
+TWOFISH_SRC += $(SRC_DIR)/zrtp/crypto/twoCFB.cpp
+SOURCES += $(TWOFISH_SRC)
+
+### CIPHEROSSL
+CIPHEROSSL_SRTP_PREFIX = $(SRC_DIR)/srtp/crypto/openssl
+CIPHEROSSL_SRTP_FILES = SrtpSymCrypto.cpp \
+			hmac.cpp
+CIPHEROSSL_SRTP_SRC = $(foreach TEMP, $(CIPHEROSSL_SRTP_FILES), $(CIPHEROSSL_SRTP_PREFIX)/$(TEMP))
+SOURCES += $(CIPHEROSSL_SRTP_SRC)
+
+CIPHEROSSL_ZRTP_PREFIX = $(SRC_DIR)/zrtp/crypto/openssl
+CIPHEROSSL_ZRTP_FILES = zrtpDH.cpp \
+			hmac256.cpp \
+			sha256.cpp \
+			hmac384.cpp \
+			sha384.cpp \
+			aesCFB.cpp
+CIPHEROSSL_ZRTP_SRC += $(foreach TEMP, $(CIPHEROSSL_ZRTP_FILES), $(CIPHEROSSL_ZRTP_PREFIX)/$(TEMP))
+SOURCES += $(CIPHEROSSL_ZRTP_SRC)
+
+### SKEINMAC
+SKEINMAC_PREFIX = $(SRC_DIR)/cryptcommon
+SKEINMAC_FILES = skein.c \
+		skein_block.c \
+		skeinApi.c \
+		macSkein.cpp
+SKEINMAC_SRC = $(foreach TEMP, $(SKEINMAC_FILES), $(SKEINMAC_PREFIX)/$(TEMP))
+SOURCES += $(SKEINMAC_SRC)
+
+### ZRTP
+ZRTP_PREFIX = $(SRC_DIR)/zrtp
+ZRTP_FILES = ZrtpCallbackWrapper.cpp \
+		ZIDCacheFile.cpp \
+		ZIDRecordFile.cpp \
+		ZRtp.cpp \
+		ZrtpCrc32.cpp \
+		ZrtpPacketCommit.cpp \
+		ZrtpPacketConf2Ack.cpp \
+		ZrtpPacketConfirm.cpp \
+		ZrtpPacketDHPart.cpp \
+		ZrtpPacketGoClear.cpp \
+		ZrtpPacketClearAck.cpp \
+		ZrtpPacketHelloAck.cpp \
+		ZrtpPacketHello.cpp \
+		ZrtpPacketError.cpp \
+		ZrtpPacketErrorAck.cpp \
+		ZrtpPacketPingAck.cpp \
+		ZrtpPacketPing.cpp \
+		ZrtpPacketSASrelay.cpp \
+		ZrtpPacketRelayAck.cpp \
+		ZrtpStateClass.cpp \
+		ZrtpTextData.cpp \
+   		ZrtpConfigure.cpp \
+		ZrtpCWrapper.cpp \
+		Base32.cpp
+ZRTP_SRC = $(foreach TEMP, $(ZRTP_FILES), $(ZRTP_PREFIX)/$(TEMP))
+SOURCES += $(ZRTP_SRC)
+
+SRTP_PREFIX =$(SRC_DIR)/srtp
+SRTP_FILES = CryptoContext.cpp \
+		CryptoContextCtrl.cpp
+SRTP_SRC += $(foreach TEMP, $(SRTP_FILES), $(SRTP_PREFIX)/$(TEMP))
+SOURCES += $(SRTP_SRC)
+
+### MISC
+SOURCES += $(SRC_DIR)/common/osSpecifics.c
+
+#
+# COMPILER / LINKER / ENV
+#
+
+CXX=clang++
+CC=clang
+
+OBJECTS1=$(SOURCES:.cpp=.o)
+OBJECTS=$(OBJECTS1:.c=.o)
+EXECUTABLE = $(BUILD_DIR)/$(OUTPUT_FILE_BASE)_$(ARCH).a
+
+### SEARCH PATHS
+# export CPLUS_INCLUDE_PATH=$(INCLUDE)
+# export C_INCLUDE_PATH=$(INCLUDE)
+CXX_INCLUDE = $(foreach TEMP, $(INCLUDE), -I$(TEMP))
+LIBRARY_FOLDERS = $(OPENSSL)/lib
+CPP_LIBRARY_FOLDERS = $(foreach TEMP, $(LIBRARY_FOLDERS), -L$(TEMP))
+LIBRARIES = ssl crypto
+CPP_LIBRARIES = $(foreach TEMP, $(LIBRARIES), -l$(TEMP))
+
+### FLAGS
+CXXFLAGS += $(CXX_INCLUDE) -arch $(ARCH)
+LDFLAGS += $(CPP_LIBRARY_FOLDERS) $(CPP_LIBRARIES) -arch $(ARCH)
+
+all: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS) 
+	${AR} cr $@ $^
+
+.c.o:
+	$(CXX) -x c -c -o $@ $(CXXFLAGS) $(LDFLAGS) $<
+
+.cpp.o:
+	$(CXX) -x c++ -c -o $@ $(CXXFLAGS) $(LDFLAGS) $<
+
+.PHONY: clean
+
+clean:
+	@echo cleaning
+	@find . -type f -name '*.o' -exec rm {} \;

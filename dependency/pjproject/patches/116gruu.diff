@@ -1,0 +1,83 @@
+Index: pjproject/_source/pjsip/include/pjsua-lib/pjsua.h
+===================================================================
+--- pjproject.orig/_source/pjsip/include/pjsua-lib/pjsua.h
++++ pjproject/_source/pjsip/include/pjsua-lib/pjsua.h
+@@ -3376,6 +3376,13 @@ typedef struct pjsua_acc_config
+      */
+     pj_bool_t         register_on_acc_add;
+ 
++    /**
++     * If this flag is set, the GRUU is enabled.
++     *
++     * Default: PJ_TRUE
++     */
++    pj_bool_t	    gruu_enabled;
++
+ } pjsua_acc_config;
+ 
+ 
+Index: pjproject/_source/pjsip/src/pjsua-lib/pjsua_acc.c
+===================================================================
+--- pjproject.orig/_source/pjsip/src/pjsua-lib/pjsua_acc.c
++++ pjproject/_source/pjsip/src/pjsua-lib/pjsua_acc.c
+@@ -1207,6 +1207,7 @@ PJ_DEF(pj_status_t) pjsua_acc_modify( pj
+     acc->cfg.reg_retry_random_interval = cfg->reg_retry_random_interval;    
+     acc->cfg.drop_calls_on_reg_fail = cfg->drop_calls_on_reg_fail;
+     acc->cfg.register_on_acc_add = cfg->register_on_acc_add;
++    acc->cfg.gruu_enabled = cfg->gruu_enabled;
+     if (acc->cfg.reg_delay_before_refresh != cfg->reg_delay_before_refresh) {
+         acc->cfg.reg_delay_before_refresh = cfg->reg_delay_before_refresh;
+ 	if (acc->regc != NULL)
+@@ -1517,6 +1518,14 @@ static pj_bool_t is_private_ip(const pj_
+ }
+ 
+ /* Update NAT address from the REGISTER response */
++static pj_bool_t acc_check_gruu(pjsua_acc *acc,
++		int contact_rewrite_method,
++		struct pjsip_regc_cbparam *param)
++{
++
++}
++
++/* Update NAT address from the REGISTER response */
+ static pj_bool_t acc_check_nat_addr(pjsua_acc *acc,
+                                     int contact_rewrite_method,
+ 				    struct pjsip_regc_cbparam *param)
+@@ -2444,9 +2453,10 @@ static pj_status_t pjsua_regc_init(int a
+ 	hsup = pjsip_supported_hdr_create(pool);
+ 	pj_list_push_back(&hdr_list, hsup);
+ 
+-	hsup->count = 2;
++	hsup->count = acc->cfg.gruu_enabled ? 3 : 2;
+ 	hsup->values[0] = pj_str("outbound");
+ 	hsup->values[1] = pj_str("path");
++	hsup->values[2] = pj_str("gruu");
+ 
+ 	pjsip_regc_add_headers(acc->regc, &hdr_list);
+     }
+Index: pjproject/_source/pjsip/src/pjsua-lib/pjsua_core.c
+===================================================================
+--- pjproject.orig/_source/pjsip/src/pjsua-lib/pjsua_core.c
++++ pjproject/_source/pjsip/src/pjsua-lib/pjsua_core.c
+@@ -301,6 +301,7 @@ PJ_DEF(void) pjsua_acc_config_default(pj
+     pj_list_init(&cfg->sub_hdr_list);
+     cfg->call_hold_type = PJSUA_CALL_HOLD_TYPE_DEFAULT;
+     cfg->register_on_acc_add = PJ_TRUE;
++    cfg->gruu_enabled = PJ_TRUE; // TODO:set to false.
+     cfg->mwi_expires = PJSIP_MWI_DEFAULT_EXPIRES;
+ }
+ 
+Index: pjproject/_source/pjsip/include/pjsua-lib/pjsua_internal.h
+===================================================================
+--- pjproject.orig/_source/pjsip/include/pjsua-lib/pjsua_internal.h
++++ pjproject/_source/pjsip/include/pjsua-lib/pjsua_internal.h
+@@ -261,6 +261,9 @@ typedef struct pjsua_acc
+     pj_str_t	     rfc5626_instprm;/**< SIP outbound instance param.  */
+     pj_str_t         rfc5626_regprm;/**< SIP outbound reg param.        */
+ 
++    pj_str_t         gruu_pub;/**< GRUU public.           */
++    pj_str_t         gruu_tmp;/**< GRUU temporary.        */
++
+     unsigned	     cred_cnt;	    /**< Number of credentials.		*/
+     pjsip_cred_info  cred[PJSUA_ACC_MAX_PROXIES]; /**< Complete creds.	*/
+ 

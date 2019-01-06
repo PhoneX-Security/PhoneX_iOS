@@ -1,0 +1,28 @@
+Index: pjproject/sources/pjsip/src/pjsip-ua/sip_inv.c
+===================================================================
+--- pjproject.orig/sources/pjsip/src/pjsip-ua/sip_inv.c
++++ pjproject/sources/pjsip/src/pjsip-ua/sip_inv.c
+@@ -1178,8 +1178,8 @@ PJ_DEF(pj_status_t) pjsip_inv_verify_req
+ 	    pjmedia_sdp_neg *neg;
+ 
+ 	    /* Local SDP must be valid! */
+-	    PJ_ASSERT_RETURN((status=pjmedia_sdp_validate(l_sdp))==PJ_SUCCESS,
+-			     status);
++           status=pjmedia_sdp_validate(l_sdp);
++	    PJ_ASSERT_RETURN(status == PJ_SUCCESS, status);
+ 
+ 	    /* Create SDP negotiator */
+ 	    status = pjmedia_sdp_neg_create_w_remote_offer(
+Index: pjproject/sources/pjlib/src/pj/addr_resolv_sock.c
+===================================================================
+--- pjproject.orig/sources/pjlib/src/pj/addr_resolv_sock.c
++++ pjproject/sources/pjlib/src/pj/addr_resolv_sock.c
+@@ -104,7 +104,7 @@ PJ_DEF(pj_status_t) pj_getaddrinfo(int a
+ 	pj_str_t tmp;
+ 
+ 	tmp.ptr = ai[0].ai_canonname;
+-	pj_strncpy_with_null(&tmp, nodename, PJ_MAX_HOSTNAME);
++	pj_strncpy_with_null(&tmp, nodename, PJ_MAX_HOSTNAME-1);
+ 	ai[0].ai_addr.addr.sa_family = (pj_uint16_t)af;
+ 	*count = 1;
+ 

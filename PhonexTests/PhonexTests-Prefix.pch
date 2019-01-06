@@ -1,0 +1,42 @@
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "PEXResStrings.h"
+#import "PEXResValues.h"
+#import "PEXResColors.h"
+#import "PEXResImages.h"
+#import "PEXTheme.h"
+#import "PEXGuiViewUtils.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+#import "DDASLLogger.h"
+#import "DDLog.h"
+
+#import "PEXUserAppPreferences.h"
+#import "PEXAppState.h"
+#import "PEXDateUtils.h"
+#import "PEXCodes.h"
+#import "PEXBase.h"
+
+#define PEXDefaultStr (@"<default>")
+#define PEXDefaultVal (1337)
+
+//#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+//#else
+//static const int ddLogLevel = LOG_LEVEL_ERROR;
+//#endif
+
+// Define if you want to enable STP debugging.
+// Warning! This leaks private data. Disable in production.
+#define PEX_ENABLE_STP_DEBUG_LOG 0
+
+#import "pj/config_site.h"
+#endif

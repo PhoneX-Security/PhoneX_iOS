@@ -1,0 +1,15 @@
+PhoneX iOS Enterprise edition installation guide:
+
+To remove stored .ipa from iTunes (not from device):
+1. - iTunes -> View -> More -> Apps -> <right click> -> Delete
+
+To install .ipa
+1. - Finder -> <go to folder with the .ipa> -> double click on .ipa
+2. - iTunes -> iPhone -> Apps -> Phonex -> click on Install -> click on Apply
+3. - iPhone -> Click on Trust
+(4.) - reproduce steps from guide "To remove stored .ipa from iTunes (not from device):"
+- - for easier future update procedure
+
+To update .ipa
+1. - Finder -> <go to folder with the .ipa> -> double click on .ipa
+2. - iTunes -> iPhone -> Apps -> Phonex -> click on Update -> click on Apply

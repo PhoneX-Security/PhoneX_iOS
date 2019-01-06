@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>status_bar_height</key>
+	<integer>21</integer>
+	<key>line_width_small</key>
+	<integer>1</integer>
+	<key>line_width_medium</key>
+	<integer>2</integer>
+	<key>dur_short</key>
+	<real>0.25</real>
+	<key>dur_shorter</key>
+	<real>0.2</real>
+</dict>
+</plist>

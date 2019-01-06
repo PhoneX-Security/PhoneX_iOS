@@ -1,0 +1,18 @@
+* Update GIT<->SVN repository
+/Users/dusanklinec/workspace/pjproject.gitsvn
+git svn rebase
+
+* Create a new tag, branch and push those to GIT repository to mark
+where is the current point in history you are using.
+tag:    v2.4.5   OR  tag:    r5026
+branch: pj-2.4.5 OR  branch: rev5026
+
+* iOS:
+ - make clean, it removes all quilt patches
+ - rsync-last.sh to get current version of pjsip repo
+ - update revision.txt to current SVN revision
+
+* Resolving conflicts in patches
+quilt push -f and resolve conflict manually in the affected files.
+quilt refresh after conflict is resolved
+ 

@@ -1,0 +1,63 @@
+Index: pjproject/sources/pjlib/src/pj/sock_common.c
+===================================================================
+--- pjproject.orig/sources/pjlib/src/pj/sock_common.c
++++ pjproject/sources/pjlib/src/pj/sock_common.c
+@@ -28,7 +28,7 @@
+ #include <pj/string.h>
+ #include <pj/compat/socket.h>
+ 
+-#if 0
++#if 1
+     /* Enable some tracing */
+     #include <pj/log.h>
+     #define THIS_FILE   "sock_common.c"
+@@ -88,7 +88,13 @@ PJ_DEF(char*) pj_sockaddr_print( const p
+     char *bquote, *equote;
+     pj_status_t status;
+ 
+-    status = pj_inet_ntop(h->sa_family, pj_sockaddr_get_addr(addr),
++	const void * sock_addr = pj_sockaddr_get_addr(addr);
++	if (sock_addr == NULL){
++		TRACE_((THIS_FILE, "Empty socket address"));
++		return "";
++	}
++
++    status = pj_inet_ntop(h->sa_family, sock_addr,
+ 			  txt, sizeof(txt));
+     if (status != PJ_SUCCESS)
+ 	return "";
+@@ -305,6 +311,9 @@ PJ_DEF(void*) pj_sockaddr_get_addr(const
+ {
+     const pj_sockaddr *a = (const pj_sockaddr*)addr;
+ 
++	//TRACE_((THIS_FILE, "sockaddr sa family: 0x%x, v4is: 0x%x, v6is: 0x%x", a->addr.sa_family, PJ_AF_INET, PJ_AF_INET6));
++	if (a->addr.sa_family != PJ_AF_INET && a->addr.sa_family != PJ_AF_INET6) return NULL;
++
+     PJ_ASSERT_RETURN(a->addr.sa_family == PJ_AF_INET ||
+ 		     a->addr.sa_family == PJ_AF_INET6, NULL);
+ 
+@@ -358,6 +367,10 @@ PJ_DEF(pj_bool_t) pj_sockaddr_has_addr(c
+ PJ_DEF(pj_uint16_t) pj_sockaddr_get_port(const pj_sockaddr_t *addr)
+ {
+     const pj_sockaddr *a = (const pj_sockaddr*) addr;
++	if (a->addr.sa_family != PJ_AF_INET && a->addr.sa_family != PJ_AF_INET6){
++		TRACE_((THIS_FILE, "get_port: unknown proto family"));
++		return (pj_uint16_t)0xFFFF;
++	}
+ 
+     PJ_ASSERT_RETURN(a->addr.sa_family == PJ_AF_INET ||
+ 		     a->addr.sa_family == PJ_AF_INET6, (pj_uint16_t)0xFFFF);
+Index: pjproject/sources/pjlib-util/src/pjlib-util/srv_resolver.c
+===================================================================
+--- pjproject.orig/sources/pjlib-util/src/pjlib-util/srv_resolver.c
++++ pjproject/sources/pjlib-util/src/pjlib-util/srv_resolver.c
+@@ -547,7 +547,8 @@ static void dns_callback(void *user_data
+ 	srv = (struct srv_target*)((pj_int8_t*)common-sizeof(struct common));
+ 	query_job = srv->parent;
+     } else {
+-	pj_assert(!"Unexpected user data!");
++	PJ_LOG(0, (__FILE__, "Assertion error; file,line: %s:%d Condition:[%s]", __FILE__, __LINE__, "Unexpected user data"));
++	//pj_assert(!"Unexpected user data!");
+ 	return;
+     }
+ 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dim_size_large</key>
+	<integer>20</integer>
+	<key>fontSizeNormal</key>
+	<string>15</string>
+	<key>dim_size_small_medium</key>
+	<string>10</string>
+	<key>distanceDecent</key>
+	<real>10</real>
+</dict>
+</plist>

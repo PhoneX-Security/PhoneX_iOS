@@ -1,0 +1,106 @@
+Index: pjproject/sources/pjsip/src/pjsua-lib/pjsua_core.c
+===================================================================
+--- pjproject.orig/sources/pjsip/src/pjsua-lib/pjsua_core.c
++++ pjproject/sources/pjsip/src/pjsua-lib/pjsua_core.c
+@@ -1350,14 +1350,26 @@ static pj_bool_t test_stun_on_status(pj_
+ 		  (int)sess->srv[sess->idx].slen,
+ 		  sess->srv[sess->idx].ptr, errmsg));
+ 
++    // Avoid looping resolve_stun_entry -> pj_stun_sock_start ->  get_mapped_addr -> sess_fail -> test_stun_on_status -> resolve_stun_entry
++    // Such loop would destroy socket that is already being tested (return was called in resolve_stun_entry).
++    // So do not process this fail if return was not called -> SOCK_BINDING_OP is called (happens on IPV6-only network).
++    if (op == PJ_STUN_SOCK_BINDING_OP && !sess->async_waiting){
++        return PJ_FALSE;
++    }
++
+ 	pj_stun_sock_destroy(stun_sock);
+ 	sess->stun_sock = NULL;
+ 
+ 	stun_resolve_add_ref(sess);
+ 
+-	++sess->idx;
+-	if (sess->idx >= sess->count)
++    ++sess->af_idx;
++    if (sess->af_idx >= 2){
++        sess->af_idx = 0;
++
++        ++sess->idx;
++        if (sess->idx >= sess->count)
+             sess->status = status;
++    }
+ 
+ 	resolve_stun_entry(sess);
+ 
+@@ -1398,6 +1410,8 @@ static void resolve_stun_entry(pjsua_stu
+ 
+     /* Loop while we have entry to try */
+     for (; sess->idx < sess->count; ++sess->idx) {
++    for (; sess->af_idx < 2; ++sess->af_idx) {
++    int dst_af = sess->af_idx == 0 ? pj_AF_INET() : pj_AF_INET6();
+ 	int af;
+ 	char target[64];
+ 	pj_str_t hostpart;
+@@ -1416,15 +1430,13 @@ static void resolve_stun_entry(pjsua_stu
+ 	if (status != PJ_SUCCESS) {
+     	    PJ_LOG(2,(THIS_FILE, "Invalid STUN server entry %s", target));
+ 	    continue;
+-	} else if (af != pj_AF_INET()) {
+-	    /* Ignore IPv6 STUN server for now */
+-	    status = PJ_EAFNOTSUP;
+-	    PJ_LOG(3,(THIS_FILE, "Ignored STUN server entry %s, currently "
+-				 "only IPv4 STUN server is supported (does "
+-				 "IPv6 still need a mapped address?)",
++	}
++    else if (af == pj_AF_INET6() && dst_af == pj_AF_INET()){
++        status = PJ_EAFNOTSUP;
++	    PJ_LOG(3,(THIS_FILE, "Explicitly IPV6 STUN, ignoring IPV4 attempt",
+ 		      target));
+ 	    continue;
+-	}
++    }
+ 	
+ 	/* Use default port if not specified */
+ 	if (port == 0)
+@@ -1432,14 +1444,15 @@ static void resolve_stun_entry(pjsua_stu
+ 
+ 	pj_assert(sess->stun_sock == NULL);
+ 
+-	PJ_LOG(4,(THIS_FILE, "Trying STUN server %s (%d of %d)..",
+-		  target, sess->idx+1, sess->count));
++	PJ_LOG(4,(THIS_FILE, "Trying STUN server %s (%d of %d), af: 0x%x..",
++		  target, sess->idx+1, sess->count, dst_af));
+ 
+ 	/* Use STUN_sock to test this entry */
++    sess->async_waiting = PJ_FALSE;
+ 	pj_bzero(&stun_sock_cb, sizeof(stun_sock_cb));
+ 	stun_sock_cb.on_status = &test_stun_on_status;
+ 	status = pj_stun_sock_create(&pjsua_var.stun_cfg, "stunresolve",
+-				     pj_AF_INET(), &stun_sock_cb,
++				     dst_af, &stun_sock_cb,
+ 				     NULL, sess, &sess->stun_sock);
+ 	if (status != PJ_SUCCESS) {
+ 	    char errmsg[PJ_ERR_MSG_SIZE];
+@@ -1470,8 +1483,9 @@ static void resolve_stun_entry(pjsua_stu
+ 	/* Done for now, testing will resume/complete asynchronously in
+ 	 * stun_sock_cb()
+ 	 */
++    sess->async_waiting = PJ_TRUE;
+ 	return;
+-    }
++    } sess->af_idx = 0; }
+ 
+     if (sess->idx >= sess->count) {
+ 	/* No more entries to try */
+Index: pjproject/sources/pjsip/include/pjsua-lib/pjsua_internal.h
+===================================================================
+--- pjproject.orig/sources/pjsip/include/pjsua-lib/pjsua_internal.h
++++ pjproject/sources/pjsip/include/pjsua-lib/pjsua_internal.h
+@@ -374,6 +374,8 @@ typedef struct pjsua_stun_resolve
+     pj_status_t		 status;    /**< Session status	    */
+     pj_sockaddr		 addr;	    /**< Result		    */
+     pj_stun_sock	*stun_sock; /**< Testing STUN sock  */
++	unsigned af_idx; /**< AF_INET family in STUN resolve  */
++	pj_bool_t async_waiting; /**< Async resolution of STUN entry  */
+ } pjsua_stun_resolve;
+ 
+ /* See also pjsua_vid_win_type_name() */

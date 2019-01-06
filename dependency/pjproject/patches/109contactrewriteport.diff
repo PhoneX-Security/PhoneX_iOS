@@ -1,0 +1,13 @@
+Index: pjproject/sources/pjsip/src/pjsua-lib/pjsua_core.c
+===================================================================
+--- pjproject.orig/sources/pjsip/src/pjsua-lib/pjsua_core.c
++++ pjproject/sources/pjsip/src/pjsua-lib/pjsua_core.c
+@@ -291,7 +291,7 @@ PJ_DEF(void) pjsua_acc_config_default(pj
+     cfg->reg_retry_interval = PJSUA_REG_RETRY_INTERVAL;
+     cfg->reg_retry_random_interval = 10;
+     cfg->contact_rewrite_method = PJSUA_CONTACT_REWRITE_METHOD;
+-    cfg->contact_use_src_port = PJ_TRUE;
++    cfg->contact_use_src_port = PJ_FALSE;
+     cfg->use_rfc5626 = PJ_TRUE;
+     cfg->reg_use_proxy = PJSUA_REG_USE_OUTBOUND_PROXY |
+ 			 PJSUA_REG_USE_ACC_PROXY;

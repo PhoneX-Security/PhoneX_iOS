@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>light_gray_high</key>
+	<string>#DDD</string>
+	<key>light_gray_high_transparent</key>
+	<string>#9DDD</string>
+	<key>light_gray_normal</key>
+	<string>#A7A7A7</string>
+	<key>light_gray_low</key>
+	<string>#878787</string>
+	<key>dim</key>
+	<string>#CCF8F8F8</string>
+	<key>white_normal</key>
+	<string>#F8F8F8</string>
+	<key>black_normal</key>
+	<string>#070707</string>
+	<key>orange_normal</key>
+	<string>#FF9000</string>
+	<key>orange_low</key>
+	<string>#E87800</string>
+	<key>light_orange_normal</key>
+	<string>#FFD69C</string>
+	<key>red_normal</key>
+	<string>#CC0000</string>
+	<key>red_low</key>
+	<string>#8F0000</string>
+	<key>green_normal</key>
+	<string>#00CC00</string>
+	<key>green_low</key>
+	<string>#008F00</string>
+</dict>
+</plist>

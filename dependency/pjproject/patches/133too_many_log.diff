@@ -1,0 +1,32 @@
+Index: pjproject/_source/pjnath/src/pjnath/ice_session.c
+===================================================================
+--- pjproject.orig/_source/pjnath/src/pjnath/ice_session.c
++++ pjproject/_source/pjnath/src/pjnath/ice_session.c
+@@ -739,6 +739,7 @@ PJ_DEF(pj_status_t) pj_ice_sess_add_cand
+     pj_grp_lock_acquire(ice->grp_lock);
+ 
+     if (ice->lcand_cnt >= PJ_ARRAY_SIZE(ice->lcand)) {
++	LOG4((ice->obj_name, "Too many, cannot add candidate"));
+ 	status = PJ_ETOOMANY;
+ 	goto on_error;
+     }
+@@ -1651,6 +1652,11 @@ PJ_DEF(pj_status_t) pj_ice_sess_create_c
+ 
+     PJ_ASSERT_RETURN(ice && rem_ufrag && rem_passwd && rem_cand_cnt &&
+ 		     rem_cand, PJ_EINVAL);
++
++	if (rem_cand_cnt + ice->rcand_cnt > PJ_ICE_MAX_CAND){
++		LOG4((ice->obj_name,  "Too many: rem_cand: %d r_cand: %d", rem_cand_cnt, ice->rcand_cnt));
++	}
++
+     PJ_ASSERT_RETURN(rem_cand_cnt + ice->rcand_cnt <= PJ_ICE_MAX_CAND,
+ 		     PJ_ETOOMANY);
+ 
+@@ -1702,6 +1708,7 @@ PJ_DEF(pj_status_t) pj_ice_sess_create_c
+ 	    pj_ice_sess_check *chk = NULL;
+ 
+ 	    if (clist->count >= PJ_ICE_MAX_CHECKS) {
++		LOG4((ice->obj_name,  "Too many: max check count reached %d", clist->count));
+ 		pj_grp_lock_release(ice->grp_lock);
+ 		return PJ_ETOOMANY;
+ 	    } 

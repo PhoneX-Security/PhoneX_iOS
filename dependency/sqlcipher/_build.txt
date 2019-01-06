@@ -1,0 +1,22 @@
+Current version: 3.3.1.
+
+- - use xcodebuild command to create ARM arch into ./build/sqlcipher (for intel archs it shouts that it does not have rules) - Release and Debug (according to XCode project settings (command line target))
+- - using Appcode or Xcode Intel ARCH ... build destination is set according to used IDE
+- - - e,g, xcode: ~/Library/Developer/Xcode/DerivedData/sqlcipher-.../Release-iphonesimulator
+- - lipo to create multi-arch lib
+
+* Steps to build:
+1. git clone https://github.com/sqlcipher/sqlcipher
+2. cd sqlcipher.git
+3. git fetch --tags
+4. git git checkout tags/v3.3.1
+5. Open sqlite project file in the Xcode
+6. Create a new running scheme, which compiles to Release target when run
+7. Add i386, x86_64 architectures to build
+8. Run on device in order to create iphoneos architectures (arms)
+9. Run on simulator in order to create iphonesimulator architectures (i386, x86_64)
+10. lipo static library from iphoneos and iphonesimulator to one
+
+* Example for lipo iphoneos + iphonesimulator architectures:
+lipo -create ~/Library/Developer/Xcode/DerivedData/sqlcipher-brffuwiotrqqmsdhiyissmbhlmbs/Build/Products/Release-iphonesimulator/libsqlcipher.a ~/Library/Developer/Xcode/DerivedData/sqlcipher-brffuwiotrqqmsdhiyissmbhlmbs/Build/Products/Release-iphoneos/libsqlcipher.a -output /tmp/libsqlcipher.a
+

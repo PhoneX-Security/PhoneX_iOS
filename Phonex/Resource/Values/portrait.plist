@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dim_size_large</key>
+	<integer>20</integer>
+	<key>dim_size_medium</key>
+	<integer>15</integer>
+	<key>dim_size_small_medium</key>
+	<integer>12</integer>
+	<key>dim_size_small</key>
+	<integer>10</integer>
+	<key>dim_size_tiny_small</key>
+	<integer>7</integer>
+	<key>dim_size_tiny</key>
+	<integer>5</integer>
+	<key>dim_size_nano</key>
+	<integer>3</integer>
+	<key>B_imageButton_height</key>
+	<integer>100</integer>
+	<key>I_logoFromTopPadding</key>
+	<integer>60</integer>
+	<key>progress_dialog_height</key>
+	<integer>100</integer>
+	<key>tab_height</key>
+	<integer>45</integer>
+	<key>tab_selector_height</key>
+	<integer>4</integer>
+	<key>B_call_diameter</key>
+	<integer>75</integer>
+</dict>
+</plist>

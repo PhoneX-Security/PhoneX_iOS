@@ -1,0 +1,256 @@
+Index: pjproject/_source/pjsip/include/pjsua-lib/pjsua.h
+===================================================================
+--- pjproject.orig/_source/pjsip/include/pjsua-lib/pjsua.h
++++ pjproject/_source/pjsip/include/pjsua-lib/pjsua.h
+@@ -3385,6 +3385,13 @@ typedef struct pjsua_acc_config
+      */
+     pj_uint32_t        register_tsx_timeout;
+ 
++    /**
++     * If this flag is set, the GRUU is enabled.
++     *
++     * Default: PJ_TRUE
++     */
++    pj_bool_t	    gruu_enabled;
++
+ } pjsua_acc_config;
+ 
+ 
+Index: pjproject/_source/pjsip/src/pjsua-lib/pjsua_acc.c
+===================================================================
+--- pjproject.orig/_source/pjsip/src/pjsua-lib/pjsua_acc.c
++++ pjproject/_source/pjsip/src/pjsua-lib/pjsua_acc.c
+@@ -19,6 +19,7 @@
+  */
+ #include <pjsua-lib/pjsua.h>
+ #include <pjsua-lib/pjsua_internal.h>
++#include <pjsip/sip_transport.h>
+ 
+ 
+ #define THIS_FILE		"pjsua_acc.c"
+@@ -1213,6 +1214,7 @@ PJ_DEF(pj_status_t) pjsua_acc_modify( pj
+     acc->cfg.reg_retry_random_interval = cfg->reg_retry_random_interval;    
+     acc->cfg.drop_calls_on_reg_fail = cfg->drop_calls_on_reg_fail;
+     acc->cfg.register_on_acc_add = cfg->register_on_acc_add;
++    acc->cfg.gruu_enabled = cfg->gruu_enabled;
+     if (acc->cfg.reg_delay_before_refresh != cfg->reg_delay_before_refresh) {
+         acc->cfg.reg_delay_before_refresh = cfg->reg_delay_before_refresh;
+ 	if (acc->regc != NULL)
+@@ -1523,6 +1525,163 @@ static pj_bool_t is_private_ip(const pj_
+ }
+ 
+ /* Update NAT address from the REGISTER response */
++static pj_bool_t acc_check_gruu(pjsua_acc *acc,
++		int contact_rewrite_method,
++		struct pjsip_regc_cbparam *param)
++{
++	pjsip_transport *tp;
++	pj_pool_t *pool;
++	int rport;
++	pjsip_sip_uri *uri;
++	pjsip_sip_uri *uriProv;
++	pjsip_via_hdr *via;
++	pj_sockaddr contact_addr;
++	pj_sockaddr recv_addr;
++	pj_status_t status;
++	pj_bool_t matched;
++	pj_str_t srv_ip = {0, 0};
++	pjsip_contact_hdr *contact_hdr;
++	const pj_str_t STR_CONTACT = { "Contact", 7 };
++
++	tp = param->rdata->tp_info.transport;
++
++	/* Only update if account is configured to auto-update */
++	if (acc->cfg.allow_contact_rewrite == PJ_FALSE)
++		return PJ_FALSE;
++
++	// Take first contact, as a proof of contept.
++	if (param->contact_cnt <= 0){
++		return PJ_FALSE;
++	}
++
++	pjsip_contact_hdr * provContact = param->contact[0];
++
++	/* Compare received and rport with the URI in our registration */
++	pool = pjsua_pool_create("tmp", 512, 512);
++	contact_hdr = (pjsip_contact_hdr*) pjsip_parse_hdr(pool, &STR_CONTACT, acc->contact.ptr, acc->contact.slen, NULL);
++	pj_assert(contact_hdr != NULL);
++	uri = (pjsip_sip_uri*) contact_hdr->uri;
++	pj_assert(uri != NULL);
++	uri = (pjsip_sip_uri*) pjsip_uri_get_uri(uri);
++
++	uriProv = (pjsip_sip_uri*) provContact->uri;
++	pj_assert(uriProv != NULL);
++	uriProv = (pjsip_sip_uri*) pjsip_uri_get_uri(uriProv);
++
++	if (uri->port == 0) {
++		pjsip_transport_type_e tp_type;
++		tp_type = (pjsip_transport_type_e) tp->key.type;
++		uri->port = pjsip_transport_get_default_port_for_type(tp_type);
++	}
++
++	PJ_LOG(3,(THIS_FILE, "New contact for account %d "
++			"name %.*s, uri.host %.*s:%d ",
++			acc->index,
++			(int)provContact->name.slen,
++			     provContact->name.ptr,
++			(int)uriProv->host.slen,
++			     uriProv->host.ptr,
++			     uriProv->port));
++
++
++	// TODO: dump parameters.
++
++	if (contact_rewrite_method == PJSUA_CONTACT_REWRITE_UNREGISTER) {
++		/* Unregister current contact */
++		pjsua_acc_set_registration(acc->index, PJ_FALSE);
++		if (acc->regc != NULL) {
++			pjsip_regc_destroy(acc->regc);
++			acc->regc = NULL;
++			acc->contact.slen = 0;
++		}
++	}
++
++	/*
++     * Build new Contact header
++     */
++	{
++		const char *ob = ";ob";
++		char *tmp;
++		const char *beginquote, *endquote;
++		char transport_param[32];
++		int len;
++		pj_bool_t secure;
++
++		secure = pjsip_transport_get_flag_from_type(tp->key.type) &
++				PJSIP_TRANSPORT_SECURE;
++
++		/* Enclose IPv6 address in square brackets */
++		if (tp->key.type & PJSIP_TRANSPORT_IPV6) {
++			beginquote = "[";
++			endquote = "]";
++		} else {
++			beginquote = endquote = "";
++		}
++
++		/* Don't add transport parameter if it's UDP */
++		if (tp->key.type != PJSIP_TRANSPORT_UDP &&
++				tp->key.type != PJSIP_TRANSPORT_UDP6)
++		{
++			pj_ansi_snprintf(transport_param, sizeof(transport_param),
++					";transport=%s",
++					pjsip_transport_get_type_name(
++							(pjsip_transport_type_e)tp->key.type));
++		} else {
++			transport_param[0] = '\0';
++		}
++
++		tmp = (char*) pj_pool_alloc(pool, PJSIP_MAX_URL_SIZE);
++		len = pj_ansi_snprintf(tmp, PJSIP_MAX_URL_SIZE,
++				"<%s:%.*s%s:%d%s%.*s%s>%.*s",
++				((secure && acc->is_sips)? "sips" : "sip"),
++				(int)acc->user_part.slen,
++				acc->user_part.ptr,
++				(acc->user_part.slen? "@" : ""),
++				rport,
++				transport_param,
++				(int)acc->cfg.contact_uri_params.slen,
++				acc->cfg.contact_uri_params.ptr,
++				(acc->cfg.use_rfc5626? ob: ""),
++				(int)acc->cfg.contact_params.slen,
++				acc->cfg.contact_params.ptr);
++		if (len < 1 || len >= PJSIP_MAX_URL_SIZE) {
++			PJ_LOG(1,(THIS_FILE, "URI too long"));
++			pj_pool_release(pool);
++			return PJ_FALSE;
++		}
++		pj_strdup2_with_null(acc->pool, &acc->contact, tmp);
++
++		update_regc_contact(acc);
++
++		/* Always update, by http://trac.pjsip.org/repos/ticket/864. */
++		/* Since the Via address will now be overwritten to the correct
++         * address by https://trac.pjsip.org/repos/ticket/1537, we do
++         * not need to update the transport address.
++         */
++		/*
++    pj_strdup_with_null(tp->pool, &tp->local_name.host, via_addr);
++    tp->local_name.port = rport;
++         */
++
++	}
++
++	if (contact_rewrite_method == PJSUA_CONTACT_REWRITE_NO_UNREG &&
++			acc->regc != NULL)
++	{
++		pjsip_regc_update_contact(acc->regc, 1, &acc->reg_contact);
++	}
++
++	/* Perform new registration */
++	if (contact_rewrite_method < PJSUA_CONTACT_REWRITE_ALWAYS_UPDATE) {
++		pjsua_acc_set_registration(acc->index, PJ_TRUE);
++	}
++
++	pj_pool_release(pool);
++
++	return PJ_TRUE;
++}
++
++/* Update NAT address from the REGISTER response */
+ static pj_bool_t acc_check_nat_addr(pjsua_acc *acc,
+                                     int contact_rewrite_method,
+ 				    struct pjsip_regc_cbparam *param)
+@@ -2208,6 +2367,15 @@ static void regc_cb(struct pjsip_regc_cb
+ 	     */
+ 	    update_rfc5626_status(acc, param->rdata);
+ 
++		if (!acc->contact_rewritten && acc_check_gruu(acc,(acc->cfg.contact_rewrite_method & 3), param)){
++			PJSUA_UNLOCK();
++			pj_log_pop_indent();
++
++			/* Avoid another check of NAT bound address */
++			acc->contact_rewritten = PJ_TRUE;
++			return;
++		}
++
+ 	    /* Check NAT bound address if it hasn't been done before */
+             if (!acc->contact_rewritten &&
+ 		acc_check_nat_addr(acc, (acc->cfg.contact_rewrite_method & 3),
+@@ -2450,9 +2618,10 @@ static pj_status_t pjsua_regc_init(int a
+ 	hsup = pjsip_supported_hdr_create(pool);
+ 	pj_list_push_back(&hdr_list, hsup);
+ 
+-	hsup->count = 2;
++	hsup->count = acc->cfg.gruu_enabled ? 3 : 2;
+ 	hsup->values[0] = pj_str("outbound");
+ 	hsup->values[1] = pj_str("path");
++	hsup->values[2] = pj_str("gruu");
+ 
+ 	pjsip_regc_add_headers(acc->regc, &hdr_list);
+     }
+Index: pjproject/_source/pjsip/src/pjsua-lib/pjsua_core.c
+===================================================================
+--- pjproject.orig/_source/pjsip/src/pjsua-lib/pjsua_core.c
++++ pjproject/_source/pjsip/src/pjsua-lib/pjsua_core.c
+@@ -301,6 +301,7 @@ PJ_DEF(void) pjsua_acc_config_default(pj
+     pj_list_init(&cfg->sub_hdr_list);
+     cfg->call_hold_type = PJSUA_CALL_HOLD_TYPE_DEFAULT;
+     cfg->register_on_acc_add = PJ_TRUE;
++    cfg->gruu_enabled = PJ_TRUE; // TODO:set to false.
+     cfg->mwi_expires = PJSIP_MWI_DEFAULT_EXPIRES;
+     cfg->register_tsx_timeout = 0;
+ }
+Index: pjproject/_source/pjsip/include/pjsua-lib/pjsua_internal.h
+===================================================================
+--- pjproject.orig/_source/pjsip/include/pjsua-lib/pjsua_internal.h
++++ pjproject/_source/pjsip/include/pjsua-lib/pjsua_internal.h
+@@ -261,6 +261,9 @@ typedef struct pjsua_acc
+     pj_str_t	     rfc5626_instprm;/**< SIP outbound instance param.  */
+     pj_str_t         rfc5626_regprm;/**< SIP outbound reg param.        */
+ 
++    pj_str_t         gruu_pub;/**< GRUU public.           */
++    pj_str_t         gruu_tmp;/**< GRUU temporary.        */
++
+     unsigned	     cred_cnt;	    /**< Number of credentials.		*/
+     pjsip_cred_info  cred[PJSUA_ACC_MAX_PROXIES]; /**< Complete creds.	*/
+ 

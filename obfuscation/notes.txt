@@ -1,0 +1,66 @@
+obfuscator-llvm:
+{
+for installation follow (<PROJECT> Obfuscated):
+- https://github.com/obfuscator-llvm/obfuscator/wiki/Installation
+- disable precompiling of the prefix header
+
+currently: -mllvm -fla -mllvm -sub
+
+problem with: -mllvm -bcf -mllvm -boguscf-loop=3 -mllvm -boguscf-prob=100
+- see IPH-81
+
+applied only on the main project
+- see IPH-82
+}
+
+ios-class-guard:
+{
+1 - for installation follow:
+- https://github.com/Polidea/ios-class-guard#installation
+- brew/macports xctool
+- see prerequisite conditions in the project_obfuscate script
+ 
+!!! see https://github.com/Polidea/ios-class-guard/issues/15
+ 
+2 - EDIT obfuscate_project
+! edited obfuscate_project is already in this folder
+- (ALREDY SET) set workspace ( not project, because of PODS, but do not add -P option),
+- - scheme, target, etc.
+- (ALREADY SET) set correct SDK (currently the newest installed iphoneos)
+
+3 - EDIT project properties:
+- Because of Pods:
+- - for Projects and Targets: add in Build Settings -> Linking -> Other Linker Flags:
+- - - -l"Pods-GoogleProtobuf" -l"Pods-ProtocolBuffers"  
+- - Build Settings -> Library Search Paths -> add path to obf build of PODs (TODO: find better solution)
+- - - e.g. "$(PROJECT_DIR)/Pods/obfuscation/build/Release-iphonesimulator"
+- exclude: FRAMEWORK and some PODs Prefixes
+- add to ignore list: keywords and framework: values and methods, symbols
+- - (build will will show you which ones)
+- - EXAMPLE OF SUCH OUTPUT WITH A SYMBOL THAT NEEDS TO BE IGNORED:
+⌦ /Users/eldred/work/project/Phonex/ios/app/repoClean/dependency/CocoaAsyncSocket/GCD/GCDAsyncSocket.m:1672:19: implicit declaration of function 'w5E' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+
+                childSocketFD = accept(parentSocketFD, (struct sockaddr *)&addr, &addrLen);
+
+4 - if the project was freshly cloned and initialized (see README.txt in root),
+- - it must be also open at least 1x by the IDE to init the SCHEME
+- - also try to build it first from IDE
+
+4.5 - copy the project for safety :)
+4.6 - outcomment steps #- 2 to #- 4 to start with obfuscation instead of rebuilding
+
+4.9 - Description of RUN sequences of the script:
+- 1. init variables
+- 2. clear stuff from previous run
+- 3. build project and create .app anddump symbols from the .app
+- 4. include symbols file into .pch prefix file of the project
+- 5. construction of the class guard command (ignores, filters, paths, etc..)
+- 6. run class guard obfuscation script
+- 7. build, create .app and dump symbols - this step can be executed from IDE for simplicity
+- - i.e. comment this step out if needed
+
+5 - RUN the script from the root of the project
+
+- we dont obfuscate pods probably because some pods - damage the whole thing! backup before trying it
+- - probably because some pods are not from pods-repo, but as a source (e.g by xmppFramework)
+}

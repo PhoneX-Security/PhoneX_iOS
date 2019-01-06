@@ -1,0 +1,217 @@
+#!/bin/bash
+
+#
+# Must be located and called in root. Because of the ios-class-guard command
+#
+
+# Required tools check
+if ! which ios-class-guard; then
+        echo "MISSING ios-class-guard ... see notes.txt"
+fi
+
+if ! which xcpretty; then
+        echo "MISSING xcpretty ... see notes.txt"
+fi
+
+if ! which class-dump; then
+        echo "MISSING class-dump ... see notes.txt"
+fi
+
+# Variables
+WORKSPACE=Phonex.xcworkspace
+SCHEME=Phonex
+# name of the .app
+TARGET=Phonex
+CONFIGURATION=Release
+
+# because of https://github.com/Polidea/ios-class-guard/issues/15, we need
+# to get the symbols from the simulator build
+#SDK=iphoneos
+# "$(PROJECT_DIR)/Pods/obfuscation/build/Release-iphoneos"
+
+SDK=iphonesimulator
+# "$(PROJECT_DIR)/Pods/obfuscation/build/Release-iphonesimulator"
+
+OBFUSCATION_FOLDER=obfuscation
+HEADERS_FOLDER="${OBFUSCATION_FOLDER}/headers"
+BUILD_FOLDER="${OBFUSCATION_FOLDER}/build"
+OBFUSCATED_SUFIX=".obf"
+HEADERS_FOLDER_OBF="${HEADERS_FOLDER}${OBFUSCATED_SUFIX}"
+BUILD_FOLDER_OBF="${BUILD_FOLDER}${OBFUSCATED_SUFIX}"
+
+SYMBOLS_FILE="${PWD}/symbols.h"
+DEVELOPER_DIR="$(xcode-select -p)"
+
+#SDK_DIR="$DEVELOPER_DIR/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk"
+SDK_DIR="$DEVELOPER_DIR/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/"
+[[ ! -d "$SDK_DIR" ]] && echo "$SDK_DIR doesn't exist" && exit 1
+
+##########
+#
+# Clears includes and symbols
+#
+##########
+function clearBeforeStart() {
+
+	echo "CLEAR BEFORE START"
+
+	#- 1 remove obfuscation include(s)
+	sed -i -e "/symbols\.h/d" ./Phonex/Phonex-Prefix.pch
+
+	#- 2 clean this script's previous output
+	rm -rf "${HEADERS_FOLDER}" "${BUILD_FOLDER}" "${HEADERS_FOLDER_OBF}" "${BUILD_FOLDER_OBF}"
+	
+	echo "CLEAR BEFORE START FINISHED"
+}
+
+########
+#
+# Build workspace and dump headers
+#
+# 1 - build folder
+# 2 - class dump headers folder
+# 
+########
+function buildAndBump() {
+	echo "BUILDING"
+	
+	xcodebuild \
+	-workspace "$WORKSPACE" \
+	-scheme "$SCHEME" \
+	-configuration "$CONFIGURATION" \
+	-sdk "$SDK" \
+	clean build \
+	OBJROOT="${1}"/ \
+	SYMROOT="${1}"/ |\
+	xcpretty -c
+	
+	if [[ $? -ne 0 ]] ; then
+		echo "BUILD FAILED"
+    	exit -1
+	fi
+	
+	echo "BUILD FINISHED"
+
+	echo "DUMPING CLASSES"
+	class-dump -H -o "${2}" "${1}"/$CONFIGURATION-$SDK/$TARGET.app/$TARGET
+	
+	if [[ $? -ne 0 ]] ; then
+		echo "CLASS DUMP FAILED"
+    	exit -1
+	fi
+	
+	echo "DUMPING FINISHED"
+}
+
+#- 2
+clearBeforeStart
+
+#- 3 build project to fetch symbols
+buildAndBump "${BUILD_FOLDER}" "${HEADERS_FOLDER}"
+
+if [[ $? -ne 0 ]] ; then
+		echo "BUILD AND DUMP FAILED"
+    	exit -1
+fi
+
+echo "BUILD AND DUMP FINISHED"
+
+echo "INCLUDING MACRO INCLUDE"
+
+#- 4 include symbol macro in prefix file
+find . -name '*-Prefix.pch' -exec sed -i .bak '1i\
+'"#import \"$SYMBOLS_FILE\"
+" "{}" \;
+
+if [[ $? -ne 0 ]] ; then
+		echo "INCLUDING OBFUSCATED SYMBOLS FAILED"
+    	exit -1
+	fi
+
+echo "INCLUDING MACRO INCLUDE FINISHED"
+
+#
+#- 5 ios-class-guard command task construction
+#
+GUARD_COMMAND="ios-class-guard --sdk-root "$SDK_DIR" -O ${SYMBOLS_FILE}"
+
+####### FILTERS #########
+# hr and xmpp because of NSCoding
+FILTER_PREFIX_LIST=(PB GCD hr_ XMPP)
+
+FILTER_PREFIX_PARAMS=""
+for i in "${FILTER_PREFIX_LIST[@]}"
+do
+        FILTER_PREFIX_PARAMS=""${FILTER_PREFIX_PARAMS}" -F '!${i}*'"
+done
+echo "FILTER_PREFIX_PARAMS ="${FILTER_PREFIX_PARAMS}""
+GUARD_COMMAND=""${GUARD_COMMAND}" "${FILTER_PREFIX_PARAMS}""
+
+####### IGNORES ###########
+IGNORE_LIST=( \
+and interface NSObject end id deprecated objectForKey ofType length copy initWithCapacity \
+height width frame size addObject green blue object forKey format file lineNumber config info \
+selector version target order isEqualToArray deserializeElementsFromNode code userInfo auxVersion \
+table image containsObject removeAllObjects value objectAtIndex dictionary weak range stringValue \
+doubleValue timeoutRemoveRpcID at new location initWithImage backgroundColor enabled touchesBegan \
+withEvent touchesEnded touchesCancelled data password sender lastObject initWithTarget action \
+initWithTarget compare categories initWithFrame initWithArray date layoutSubviews text lock \
+addGestureRecognizer textColor setTitle ensureCapacityForAdditionalDataOfLength completion \
+viewWillAppear hideOutgoingCallNotification isView y context intValue name animated \
+reachabilityWithAddress dismissViewControllerAnimated viewWillDisappear localPortFromNativeSocket4 \
+viewDidAppear x progress integerValue timeZone removeObjectForKey observeValueForKeyPath ofObject \
+change cancel insertObject atIndex inManagedObjectContext delay red getRed drawPlaceholderInRect \
+placeholder setDelegate viewDidDisappear setDelegate attributes floatValue boolValue initWithData \
+stringFromDate interval managedObjectContext save certificates host statusCode MIMEType appendData \
+start verify integer URL cookies occupantsForRoom path closeSilentlyCursor arguments stop set \
+string unsignedIntegerValue didReceivePong systemUptime GCDAsyncSpecialPacket arrayWithArray \
+addDependency writeData cancelled createBuilder valueElementFromNumber state initWithString \
+close initWithBool drawRect allObjects maxLength usingBlock configuration persistentStoreCoordinator \
+enumerateObjectsUsingBlock awakeFromInsert willSave sharedInstance reason soundName callState \
+delete read update connect thumbnail filename url property errorWithDomain locale applicationActivities \
+open scheme propertyForKey fileSize forMode signal append write streamStatus hasBytesAvailable \
+initWithURL resume response isExpectedContentLength hasSpaceAvailable resolveInstanceMethod \
+completionBlock initWithName poll time main accept \
+# Implementors of NSCoding
+# see https://github.com/Polidea/ios-class-guard
+USBoolean PEXX509 PEXUserKeyRefreshRecord PEXUri PEXPushNewCertEvent PEXPushClistSyncEvent \
+PEXPresenceUpdateMsg PEXPresenceUpdateEnvelope PEXPresenceState PEXPjZrtpStateInfo PEXPjCall \
+PEXFtUploadParams PEXFtUploadEntry PEXFtResult PEXFtProgress PEXFtDownloadFileParams \
+PEXFtDownloadEntry PEXFileToSendEntry PEXDHUserCheckParam PEXDHKeyGeneratorProgress \
+PEXDHKeyGeneratorParams PEXDHKeyGenForUser PEXUserCert PEXDbModelBase PEXConnectivityChange \
+PEXCertUpdateProgress PEXCertRefreshResult PEXCertRefreshParams PEXCertCheckListEntry \
+)
+IGNORE_PARAMS=""
+for i in "${IGNORE_LIST[@]}"
+do
+        IGNORE_PARAMS="${IGNORE_PARAMS} -i ${i}"
+done
+echo "IGNOREPARAMS = ${IGNORE_PARAMS}"
+GUARD_COMMAND="${GUARD_COMMAND} ${IGNORE_PARAMS}"
+
+# currently not obfuscating cocoa pods
+# GUARD_COMMAND="${GUARD_COMMAND} -P Pods/Pods.xcodeproj/project.pbxproj"
+# GUARD_COMMAND="${GUARD_COMMAND} -m symbols.json"
+
+
+GUARD_COMMAND="${GUARD_COMMAND} ${BUILD_FOLDER}/$CONFIGURATION-$SDK/$TARGET.app/$TARGET"
+echo "GUARD_COMMAND: ${GUARD_COMMAND}"
+
+#- 6 Obfuscate project
+eval "${GUARD_COMMAND}"
+
+if [[ $? -ne 0 ]] ; then
+		echo "OBFUSCATION FAILED"
+    	exit -1
+	fi
+
+#- 7 Build obfuscated project to fetch symbols
+# Run from IDE instead
+# buildAndBump "${BUILD_FOLDER_OBF}" "${HEADERS_FOLDER_OBF}"
+
+if [[ $? -ne 0 ]] ; then
+		echo "BUILD AND DUMP FAILED"
+    	exit -1
+	fi
+
+exit -1

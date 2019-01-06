@@ -1,0 +1,56 @@
+Index: pjproject/sources/pjnath/src/pjnath/turn_session.c
+===================================================================
+--- pjproject.orig/sources/pjnath/src/pjnath/turn_session.c
++++ pjproject/sources/pjnath/src/pjnath/turn_session.c
+@@ -677,7 +677,11 @@ PJ_DEF(pj_status_t) pj_turn_session_set_
+ 	    pj_sockaddr *addr = &sess->srv_addr_list[i];
+ 	    pj_memcpy(addr, &ai[i].ai_addr, sizeof(pj_sockaddr));
+ 	    addr->addr.sa_family = sess->af;
+-	    addr->ipv4.sin_port = pj_htons(sess->default_port);
++		if (sess->af == PJ_AF_INET) {
++			addr->ipv4.sin_port = pj_htons(sess->default_port);
++		} else {
++			addr->ipv6.sin6_port = pj_htons(sess->default_port);
++		}
+ 	}
+ 
+ 	sess->srv_addr = &sess->srv_addr_list[0];
+Index: pjproject/sources/pjsip/src/pjsua-lib/pjsua_media.c
+===================================================================
+--- pjproject.orig/sources/pjsip/src/pjsua-lib/pjsua_media.c
++++ pjproject/sources/pjsip/src/pjsua-lib/pjsua_media.c
+@@ -953,6 +953,34 @@ static pj_status_t create_ice_media_tran
+ 	    ice_cfg.turn_tp[0].cfg.port_range = 
+ 				 (pj_uint16_t)(pjsua_var.ua_cfg.max_calls * 10);
+ 
++	if (use_ipv6 && PJ_ICE_MAX_TURN >= 2) {
++		ice_cfg.turn_tp_cnt = 2;
++		pj_ice_strans_turn_cfg_default(&ice_cfg.turn_tp[1]);
++		ice_cfg.turn_tp[1].af = pj_AF_INET6();
++	}
++
++	if (use_ipv6 && ice_cfg.turn_tp_cnt > 1) {
++		pj_str_t IN6_ADDR_ANY = {"0", 1};
++		pj_sockaddr_init(pj_AF_INET6(),
++				&ice_cfg.turn_tp[1].cfg.bound_addr,
++				&IN6_ADDR_ANY, (pj_uint16_t)cfg->port);
++		ice_cfg.turn_tp[1].cfg.port_range =
++				ice_cfg.turn_tp[0].cfg.port_range;
++
++		/* Copy QoS setting to TURN setting */
++		ice_cfg.turn_tp[1].cfg.qos_type = cfg->qos_type;
++		pj_memcpy(&ice_cfg.turn_tp[1].cfg.qos_params, &cfg->qos_params,
++				sizeof(cfg->qos_params));
++
++		/* Copy binding port setting to TURN setting */
++		pj_sockaddr_init(ice_cfg.turn_tp[1].af, &ice_cfg.turn_tp[1].cfg.bound_addr,
++				&cfg->bound_addr, (pj_uint16_t)cfg->port);
++		ice_cfg.turn_tp[1].cfg.port_range = (pj_uint16_t)cfg->port_range;
++		if (cfg->port != 0 && ice_cfg.turn_tp[1].cfg.port_range == 0)
++			ice_cfg.turn_tp[1].cfg.port_range =
++					(pj_uint16_t)(pjsua_var.ua_cfg.max_calls * 10);
++	}
++
+ 	/* Configure max packet size */
+ 	ice_cfg.turn_tp[0].cfg.max_pkt_size = PJMEDIA_MAX_MRU;
+     }

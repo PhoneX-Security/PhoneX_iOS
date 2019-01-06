@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://phoenix.com/hr/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://phoenix.com/hr/definitions" targetNamespace="http://phoenix.com/hr/definitions">
+  <wsdl:types>
+    <xs:schema xmlns:hr="http://phoenix.com/hr/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://phoenix.com/hr/schemas"><xs:element name="accountInfoV1Request"><xs:complexType><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountInfoV1Response"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="forcePasswordChange" type="hr:trueFalse"/><xs:element minOccurs="0" name="storedFilesNum" type="xs:int"/><xs:element minOccurs="0" name="serverTime" type="xs:dateTime"/><xs:element minOccurs="0" name="licenseType" type="xs:string"/><xs:element minOccurs="0" name="accountIssued" type="xs:dateTime"/><xs:element minOccurs="0" name="accountExpires" type="xs:dateTime"/><xs:element minOccurs="0" name="firstAuthCheckDate" type="xs:dateTime"/><xs:element minOccurs="0" name="lastAuthCheckDate" type="xs:dateTime"/><xs:element minOccurs="0" name="firstLoginDate" type="xs:dateTime"/><xs:element minOccurs="0" name="firstUserAddDate" type="xs:dateTime"/><xs:element minOccurs="0" name="accountLastActivity" type="xs:dateTime"/><xs:element minOccurs="0" name="accountLastPassChange" type="xs:dateTime"/><xs:element minOccurs="0" name="accountDisabled" type="xs:boolean"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountSettingsUpdateV1Request"><xs:complexType><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="requestBody" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountSettingsUpdateV1Response"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element default="" name="errText" type="xs:string"/><xs:element name="responseBody" type="xs:string"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="generalRequest"><xs:complexType><xs:sequence><xs:element default="" name="reqType" type="xs:string"/><xs:element name="reqJSON" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="generalResponse"><xs:complexType><xs:sequence><xs:element default="0" name="errCode" type="xs:int"/><xs:element default="" name="errText" type="xs:string"/><xs:element minOccurs="0" name="responseJSON" type="xs:string"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="alias"><xs:annotation><xs:documentation>
+                User alias type
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="64"/><xs:pattern value="[a-zA-Z][a-zA-Z0-9\-\._@]*"/></xs:restriction></xs:simpleType><xs:simpleType name="groupID"><xs:annotation><xs:documentation>
+                Simple group ID type - unsigned int
+            </xs:documentation></xs:annotation><xs:restriction base="xs:unsignedInt"/></xs:simpleType><xs:simpleType name="group"><xs:annotation><xs:documentation>
+                Group ID - can have subgroups.
+                Example: company.managers.high
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[^\.][a-zA-Z0-9_\-\.]+"/></xs:restriction></xs:simpleType><xs:complexType name="groupRecord"><xs:annotation><xs:documentation>
+                Group record (in contactlist element for example).
+                This group is intended to be loaded from database.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="groupId" type="hr:groupID"/><xs:element name="groupName" type="hr:group"/></xs:sequence></xs:complexType><xs:simpleType name="enabledDisabled"><xs:annotation><xs:documentation>
+                Enabled or disabled state
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="enabled"/><xs:enumeration value="disabled"/></xs:restriction></xs:simpleType><xs:simpleType name="trueFalse"><xs:annotation><xs:documentation>
+                Boolean
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="true"/><xs:enumeration value="false"/></xs:restriction></xs:simpleType><xs:simpleType name="trueFalseNA"><xs:annotation><xs:documentation>
+                Boolean with null
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="true"/><xs:enumeration value="false"/><xs:enumeration value="na"/></xs:restriction></xs:simpleType><xs:simpleType name="userSIP"><xs:annotation><xs:documentation>
+                User's SIP address type
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[^@]+@[^\.]+\..+"/></xs:restriction></xs:simpleType><xs:simpleType name="userID"><xs:annotation><xs:documentation>
+                Simple user ID type - unsigned int
+            </xs:documentation></xs:annotation><xs:restriction base="xs:unsignedInt"/></xs:simpleType><xs:simpleType name="userPresenceStatus"><xs:annotation><xs:documentation>
+                User presence type - presence in contact list
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="online"/><xs:enumeration value="offline"/><xs:enumeration value="away"/><xs:enumeration value="dnd"/><xs:enumeration value="invisible"/></xs:restriction></xs:simpleType><xs:simpleType name="userWhitelistStatus"><xs:annotation><xs:documentation>
+                User presence in whitelist type
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="in"/><xs:enumeration value="notin"/><xs:enumeration value="disabled"/><xs:enumeration value="noclue"/></xs:restriction></xs:simpleType><xs:simpleType name="binaryPayload"><xs:annotation><xs:documentation>
+                Binary Base64 encoded payload
+            </xs:documentation></xs:annotation><xs:restriction base="xs:base64Binary"/></xs:simpleType><xs:complexType name="aliasList"><xs:annotation><xs:documentation>
+                List of aliases
+            </xs:documentation></xs:annotation><xs:sequence><xs:element maxOccurs="unbounded" name="alias" type="hr:alias"/></xs:sequence></xs:complexType><xs:complexType name="sipList"><xs:annotation><xs:documentation>
+                List of SIP addresses
+            </xs:documentation></xs:annotation><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="user" type="hr:userSIP"/></xs:sequence></xs:complexType><xs:complexType name="userIdentifier"><xs:annotation><xs:documentation>
+                User identifier for requests.
+                If ID is present, it means that user is INTERNAL only
+                if SIP ID is present, it means that user can be INTERNAL/EXTERNAL
+            </xs:documentation></xs:annotation><xs:choice><xs:element name="userSIP" type="hr:userSIP"/><xs:element name="userID" type="hr:userID"/></xs:choice></xs:complexType><xs:complexType name="groupIdentifier"><xs:annotation><xs:documentation>
+                Group identifier for request - can be group id or group name
+            </xs:documentation></xs:annotation><xs:choice><xs:element name="groupID" type="hr:groupID"/><xs:element name="groupName" type="hr:group"/></xs:choice></xs:complexType><xs:simpleType name="certificateStatus"><xs:annotation><xs:documentation>
+                State available for certificate response
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="ok"/><xs:enumeration value="invalid"/><xs:enumeration value="revoked"/><xs:enumeration value="forbidden"/><xs:enumeration value="missing"/><xs:enumeration value="nouser"/></xs:restriction></xs:simpleType><xs:element name="getOneTimeTokenRequest"><xs:annotation><xs:documentation>
+                Request for signing certificate by server CA - be very carefull!
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="userToken" type="xs:string"/><xs:element name="type" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:element name="getOneTimeTokenResponse"><xs:annotation><xs:documentation>
+                Request for signing certificate by server CA - be very carefull!
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="userToken" type="xs:string"/><xs:element name="serverToken" type="xs:string"/><xs:element name="notValidAfter" type="xs:dateTime"/></xs:sequence></xs:complexType></xs:element><xs:element name="passwordChangeV2Request"><xs:annotation><xs:documentation>
+                Request to change password to provided value.
+                User can also change password for different user - see targetUser field.
+                Password is encrypted like CSR is, but in base64,
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="usrToken" type="xs:string"/><xs:element name="serverToken" type="xs:string"/><xs:element name="authHash" type="xs:string"/><xs:element name="newHA1" type="hr:binaryPayload"/><xs:element name="newHA1B" type="hr:binaryPayload"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="passwordChangeV2Response"><xs:annotation><xs:documentation>
+                Simple response for password change request
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="result" type="xs:int"/><xs:element name="reason" type="xs:string"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authCheckV3Request"><xs:annotation><xs:documentation>
+                Check user authentication with password and additionally with certificate
+                Version 3
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="authHash" type="xs:string"/><xs:element name="unregisterIfOK" type="hr:trueFalse"/><xs:element minOccurs="0" name="resourceId" type="xs:string"/><xs:element minOccurs="0" name="appVersion" type="xs:string"/><xs:element minOccurs="0" name="capabilities" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authCheckV3Response"><xs:annotation><xs:documentation>
+                Simple response for auth check procedure
+                Version 3
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="authHashValid" type="hr:trueFalse"/><xs:element name="certValid" type="hr:trueFalseNA"/><xs:element name="certStatus" type="hr:certificateStatus"/><xs:element name="forcePasswordChange" type="hr:trueFalse"/><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="storedFilesNum" type="xs:int"/><xs:element minOccurs="0" name="serverTime" type="xs:dateTime"/><xs:element minOccurs="0" name="licenseType" type="xs:string"/><xs:element minOccurs="0" name="accountIssued" type="xs:dateTime"/><xs:element minOccurs="0" name="accountExpires" type="xs:dateTime"/><xs:element minOccurs="0" name="firstAuthCheckDate" type="xs:dateTime"/><xs:element minOccurs="0" name="lastAuthCheckDate" type="xs:dateTime"/><xs:element minOccurs="0" name="firstLoginDate" type="xs:dateTime"/><xs:element minOccurs="0" name="firstUserAddDate" type="xs:dateTime"/><xs:element minOccurs="0" name="accountLastActivity" type="xs:dateTime"/><xs:element minOccurs="0" name="accountLastPassChange" type="xs:dateTime"/><xs:element minOccurs="0" name="accountDisabled" type="xs:boolean"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="getCertificateRequest"><xs:annotation><xs:documentation>
+                Get certificate request for given users
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" name="element" type="hr:certificateRequestElement"/></xs:sequence></xs:complexType><xs:unique name="uniqueCertUlistSchema"><xs:selector xpath="user"/><xs:field xpath="@user"/></xs:unique></xs:element><xs:complexType name="certificateRequestElement"><xs:annotation><xs:documentation>
+                One element in certificate request. Contains user to retrieve
+                certificate for.
+
+                User can also provide hash for certificate that owns and assumes
+                it is valid hash for certificate. In this case we are not returning
+                binary certificate, we are just confirming its validity if it is true.
+                If provided certificate is invalid, INVALID is returned and if user
+                has some new certificate valid, it is returned.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="certificateHash" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="certificateWrapper"><xs:annotation><xs:documentation>
+                One certificate for particular user
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="certificate" type="hr:binaryPayload"/><xs:element name="status" type="hr:certificateStatus"/><xs:element name="providedCertStatus" type="hr:certificateStatus"/></xs:sequence></xs:complexType><xs:element name="getCertificateResponse"><xs:annotation><xs:documentation>
+                Response contains X.509 certificates
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="hr:certificateWrapper"/></xs:sequence></xs:complexType></xs:element><xs:element name="signCertificateRequest"><xs:annotation><xs:documentation>
+                Request for signing certificate by server CA - be very carefull!
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="usrToken" type="xs:string"/><xs:element name="serverToken" type="xs:string"/><xs:element name="authHash" type="xs:string"/><xs:element name="CSR" type="hr:binaryPayload"/></xs:sequence></xs:complexType></xs:element><xs:element name="signCertificateResponse"><xs:annotation><xs:documentation>
+                Response contains X.509 certificates
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="certificate" type="hr:certificateWrapper"/></xs:sequence></xs:complexType></xs:element><xs:element name="signCertificateV2Request"><xs:annotation><xs:documentation>
+                Request for signing certificate by server CA - be very carefull!
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="usrToken" type="xs:string"/><xs:element name="serverToken" type="xs:string"/><xs:element name="authHash" type="xs:string"/><xs:element name="CSR" type="hr:binaryPayload"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="signCertificateV2Response"><xs:annotation><xs:documentation>
+                Response contains X.509 certificates
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="certificate" type="hr:certificateWrapper"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="whitelistAction"><xs:annotation><xs:documentation>
+                White list action type - inside whitelist change request
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="add"/><xs:enumeration value="remove"/><xs:enumeration value="enable"/><xs:enumeration value="disable"/><xs:enumeration value="nothing"/></xs:restriction></xs:simpleType><xs:simpleType name="contactlistAction"><xs:annotation><xs:documentation>
+                Action performed on contact list item
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="add"/><xs:enumeration value="update"/><xs:enumeration value="remove"/><xs:enumeration value="enable"/><xs:enumeration value="disable"/><xs:enumeration value="nothing"/></xs:restriction></xs:simpleType><xs:complexType name="contactlistReturn"><xs:annotation><xs:documentation>
+                Contactlist request response type - integer
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="user" type="hr:userSIP"/><xs:element name="resultCode" type="xs:int"/></xs:sequence></xs:complexType><xs:complexType name="contactlistChangeRequestElement"><xs:annotation><xs:documentation>
+                Contactlist request element, inside contactlist change request message.
+
+                Since Whitelist is subset of contactlist, with this request user
+                can change whitelist settings also.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="user" type="hr:userIdentifier"/><xs:element name="action" type="hr:contactlistAction"/><xs:element name="whitelistAction" type="hr:whitelistAction"/><xs:element name="displayName" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="contactListElement"><xs:annotation><xs:documentation>
+                One element in contactlist response
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="owner" type="hr:userSIP"/><xs:element name="userid" type="hr:userID"/><xs:element name="alias" type="hr:alias"/><xs:element name="usersip" type="hr:userSIP"/><xs:element name="presenceStatus" type="hr:userPresenceStatus"/><xs:element name="contactlistStatus" type="hr:enabledDisabled"/><xs:element name="whitelistStatus" type="hr:userWhitelistStatus"/><xs:element name="hideInContactList" type="xs:boolean"/><xs:element name="displayName" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="whitelistRequestElement"><xs:annotation><xs:documentation>
+                Whitelist request element, inside whitelist request message
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element name="user" type="hr:userIdentifier"/><xs:element name="action" type="hr:whitelistAction"/></xs:sequence></xs:complexType><xs:complexType name="whitelistElement"><xs:annotation><xs:documentation>
+                One element in whitelist response
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="userid" type="hr:userID"/><xs:element name="usersip" type="hr:userSIP"/><xs:element name="whitelistStatus" type="hr:userWhitelistStatus"/></xs:sequence></xs:complexType><xs:simpleType name="whitelistReturn"><xs:annotation><xs:documentation>
+                Whitelist request response type - integer
+            </xs:documentation></xs:annotation><xs:restriction base="xs:int"/></xs:simpleType><xs:element name="whitelistRequest"><xs:annotation><xs:documentation>
+                Whitelist change request - add/remove whitelist multiple entries
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" name="whitelistrequestElement" type="hr:whitelistRequestElement"/></xs:sequence></xs:complexType><xs:unique name="whitelistrequestElement"><xs:selector xpath="whitelistrequestElement"/><xs:field xpath="@user"/></xs:unique></xs:element><xs:element name="whitelistResponse"><xs:annotation><xs:documentation>
+                Whitelist change request response
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" name="return" type="hr:whitelistReturn"/></xs:sequence></xs:complexType></xs:element><xs:element name="whitelistGetRequest"><xs:annotation><xs:documentation>
+                Fetches whole whitelist
+            </xs:documentation></xs:annotation><xs:complexType/></xs:element><xs:element name="whitelistGetResponse"><xs:annotation><xs:documentation>
+                Whitelist response - contains full whitelist
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="hr:whitelistElement"/></xs:sequence></xs:complexType></xs:element><xs:element name="contactlistGetRequest"><xs:annotation><xs:documentation>
+                Simple get contactlist request, can request whole contact list
+                or only portion of it specifying list of aliases to retrieve
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="targetUser" type="hr:userSIP"/><xs:element maxOccurs="unbounded" minOccurs="0" name="users" type="hr:userIdentifier"/></xs:sequence></xs:complexType><xs:unique name="uniqueAliasClistSchema"><xs:selector xpath="user"/><xs:field xpath="@user"/></xs:unique></xs:element><xs:element name="contactlistGetResponse"><xs:annotation><xs:documentation>
+                Contact list get response
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="contactlistEntry" type="hr:contactListElement"/></xs:sequence></xs:complexType><xs:unique name="contactlistEntry"><xs:selector xpath="contactlistEntry"/><xs:field xpath="@user"/></xs:unique></xs:element><xs:element name="contactlistChangeRequest"><xs:annotation><xs:documentation>
+                Contactlist change request - add/remove multiple contactlist entries
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" name="contactlistChangeRequestElement" type="hr:contactlistChangeRequestElement"/></xs:sequence></xs:complexType><xs:unique name="uniqueAlias"><xs:selector xpath="contactlistChangeRequestElement"/><xs:field xpath="@user"/></xs:unique></xs:element><xs:element name="contactlistChangeResponse"><xs:annotation><xs:documentation>
+                Contactlist change request response
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" name="return" type="hr:contactlistReturn"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="clistElementV2"><xs:annotation><xs:documentation>
+                One element in contactlist response
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="owner" type="hr:userSIP"/><xs:element name="userid" type="hr:userID"/><xs:element name="alias" type="hr:alias"/><xs:element name="usersip" type="hr:userSIP"/><xs:element name="presenceStatus" type="hr:userPresenceStatus"/><xs:element name="contactlistStatus" type="hr:enabledDisabled"/><xs:element name="whitelistStatus" type="hr:userWhitelistStatus"/><xs:element name="hideInContactList" type="xs:boolean"/><xs:element name="displayName" type="xs:string"/><xs:element minOccurs="0" name="dateLastChange" type="xs:dateTime"/><xs:element minOccurs="0" name="auxData" type="xs:string"/><xs:element minOccurs="0" name="primaryGroup" type="xs:long"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="clistElementListV2"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="elements" type="hr:clistElementV2"/></xs:sequence></xs:complexType><xs:element name="clistGetV2Request"><xs:annotation><xs:documentation>
+                Simple get contactlist request, can request whole contact list
+                or only portion of it specifying list of aliases to retrieve
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/><xs:element minOccurs="0" name="users" type="hr:sipList"/></xs:sequence></xs:complexType></xs:element><xs:element name="clistGetV2Response"><xs:annotation><xs:documentation>
+                Contact list get response
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/><xs:element name="errCode" type="xs:int"/><xs:element name="contactList" type="hr:clistElementListV2"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="clistChangeRequestElementV2"><xs:annotation><xs:documentation>
+                Contactlist request element, inside contactlist change request message.
+
+                Since Whitelist is subset of contactlist, with this request user
+                can change whitelist settings also.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userIdentifier"/><xs:element name="action" type="hr:contactlistAction"/><xs:element minOccurs="0" name="displayName" type="xs:string"/><xs:element minOccurs="0" name="auxData" type="xs:string"/><xs:element minOccurs="0" name="whitelistAction" type="hr:whitelistAction"/><xs:element minOccurs="0" name="primaryGroup" type="xs:int"/><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element default="true" minOccurs="0" name="managePairingRequests" type="xs:boolean"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="clistChangeListV2"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="changes" type="hr:clistChangeRequestElementV2"/></xs:sequence></xs:complexType><xs:complexType name="clistChangeResultV2"><xs:annotation><xs:documentation>
+                Contactlist request response type - integer
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="resultCode" type="xs:int"/><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="user" type="hr:userSIP"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:element name="clistChangeV2Request"><xs:annotation><xs:documentation>
+                Contactlist change request - add/remove multiple contactlist entries
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="changes" type="hr:clistChangeListV2"/><xs:element default="true" name="managePairingRequests" type="xs:boolean"/><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="clistChangeResultListV2"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="results" type="hr:clistChangeResultV2"/></xs:sequence></xs:complexType><xs:element name="clistChangeV2Response"><xs:annotation><xs:documentation>
+                Contactlist change request response
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="resultList" type="hr:clistChangeResultListV2"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="cgroupAction"><xs:restriction base="xs:string"><xs:enumeration value="add"/><xs:enumeration value="update"/><xs:enumeration value="remove"/></xs:restriction></xs:simpleType><xs:complexType name="cgroup"><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="groupKey" type="xs:string"/><xs:element name="groupType" type="xs:string"/><xs:element name="owner" type="hr:userSIP"/><xs:element name="groupName" type="xs:string"/><xs:element minOccurs="0" name="dateLastChange" type="xs:dateTime"/><xs:element minOccurs="0" name="auxData" type="xs:string"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="cgroupList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="groups" type="hr:cgroup"/></xs:sequence></xs:complexType><xs:complexType name="cgroupIdList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="ids" type="xs:long"/></xs:sequence></xs:complexType><xs:element name="cgroupGetRequest"><xs:complexType><xs:sequence><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="idList" type="hr:cgroupIdList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="cgroupGetResponse"><xs:complexType><xs:sequence><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/><xs:element name="errCode" type="xs:int"/><xs:element name="groupList" type="hr:cgroupList"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="cgroupUpdateRequestElement"><xs:sequence><xs:element name="action" type="hr:cgroupAction"/><xs:element minOccurs="0" name="id" type="xs:long"/><xs:element minOccurs="0" name="groupKey" type="xs:string"/><xs:element minOccurs="0" name="groupType" type="xs:string"/><xs:element minOccurs="0" name="owner" type="hr:userSIP"/><xs:element minOccurs="0" name="groupName" type="xs:string"/><xs:element minOccurs="0" name="auxData" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="cgroupUpdateRequestList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="updates" type="hr:cgroupUpdateRequestElement"/></xs:sequence></xs:complexType><xs:complexType name="cgroupUpdateResult"><xs:sequence><xs:element name="resultCode" type="xs:int"/><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="groupId" type="xs:long"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="cgroupUpdateResultList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="results" type="hr:cgroupUpdateResult"/></xs:sequence></xs:complexType><xs:element name="cgroupUpdateRequest"><xs:complexType><xs:sequence><xs:element name="updatesList" type="hr:cgroupUpdateRequestList"/><xs:element minOccurs="0" name="targetUser" type="hr:userSIP"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="cgroupUpdateResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="resultList" type="hr:cgroupUpdateResultList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="ftNonce"><xs:annotation><xs:documentation>
+                24 ASCII characters in base64 -&gt; 18 byte nonce.
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="24"/><xs:maxLength value="24"/><xs:pattern value="[a-zA-Z0-9+=/]{24}"/></xs:restriction></xs:simpleType><xs:simpleType name="ftHash256"><xs:annotation><xs:documentation>
+                Base64 encoded 256byte hash
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="43"/><xs:maxLength value="43"/><xs:pattern value="[a-zA-Z0-9+=/]{43}"/></xs:restriction></xs:simpleType><xs:complexType name="ftDHKey"><xs:annotation><xs:documentation>
+                Diffie-Hellman offline-keys.
+                Used for uploading new keys from the creator to the server cache.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="aEncBlock" type="hr:binaryPayload"/><xs:element name="sEncBlock" type="hr:binaryPayload"/><xs:element name="nonce1" type="hr:ftHash256"/><xs:element name="nonce2" type="hr:ftNonce"/><xs:element name="sig1" type="hr:binaryPayload"/><xs:element minOccurs="0" name="sig2" type="hr:binaryPayload"/><xs:element name="expires" type="xs:dateTime"/><xs:element minOccurs="0" name="protocolVersion" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/><xs:element minOccurs="0" name="creatorCertInfo" type="xs:string"/><xs:element minOccurs="0" name="userCertInfo" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="sipDatePair"><xs:annotation><xs:documentation>
+                SIP, Date pair.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="sip" type="hr:userSIP"/><xs:element name="dt" type="xs:dateTime"/></xs:sequence></xs:complexType><xs:complexType name="sipDatePairList"><xs:annotation><xs:documentation>
+                List of pairs (SIP, Date)
+            </xs:documentation></xs:annotation><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="sipdate" type="hr:sipDatePair"/></xs:sequence></xs:complexType><xs:element name="ftAddDHKeysRequest"><xs:annotation><xs:documentation>
+                Message for adding Diffie Hellman keys to the server cache.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element maxOccurs="1000" minOccurs="0" name="dhkeys" type="hr:ftDHKey"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="ftAddDHKeysReturnType"><xs:annotation><xs:documentation>
+                Whitelist request response type - integer
+            </xs:documentation></xs:annotation><xs:restriction base="xs:int"/></xs:simpleType><xs:complexType name="ftAddDHKeysReturnList"><xs:annotation><xs:documentation>
+                List of return values.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="code" type="hr:ftAddDHKeysReturnType"/></xs:sequence></xs:complexType><xs:element name="ftAddDHKeysResponse"><xs:annotation><xs:documentation>
+                Message for adding Diffie Hellman keys to the server cache.
+                Response.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="result" type="hr:ftAddDHKeysReturnList"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftRemoveDHKeysRequest"><xs:annotation><xs:documentation>
+                Message for removing all Diffie-Hellman keys from the server for the caller.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element default="false" name="deleteAll" type="xs:boolean"/><xs:element minOccurs="0" name="nonceList" type="hr:ftNonceList"/><xs:element minOccurs="0" name="users" type="hr:sipList"/><xs:element minOccurs="0" name="userDateList" type="hr:sipDatePairList"/><xs:element minOccurs="0" name="deleteOlderThan" type="xs:dateTime"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftRemoveDHKeysResponse"><xs:annotation><xs:documentation>
+                Message for removing all Diffie-Hellman keys from the server for the caller.
+                Response.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="ftDHkeyState"><xs:annotation><xs:documentation>
+                White list action type - inside whitelist change request
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="ready"/><xs:enumeration value="used"/><xs:enumeration value="expired"/><xs:enumeration value="uploaded"/></xs:restriction></xs:simpleType><xs:complexType name="ftDHKeyUserInfo"><xs:annotation><xs:documentation>
+                Diffie-Hellman offline-keys information provided by server to
+                the creator for a particular user.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="nonce2" type="hr:ftNonce"/><xs:element name="status" type="hr:ftDHkeyState"/><xs:element name="expires" type="xs:dateTime"/><xs:element minOccurs="0" name="created" type="xs:dateTime"/><xs:element minOccurs="0" name="creatorCertInfo" type="xs:string"/><xs:element minOccurs="0" name="userCertInfo" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="ftDHKeyUserStats"><xs:annotation><xs:documentation>
+                Diffie-Hellman offline-keys simple stats provided by server to
+                the creator for a particular user.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="readyCount" type="xs:int"/><xs:element name="usedCount" type="xs:int"/><xs:element name="expiredCount" type="xs:int"/><xs:element name="uploadedCount" type="xs:int"/></xs:sequence></xs:complexType><xs:complexType name="ftDHKeyUserInfoArr"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="keyinfo" type="hr:ftDHKeyUserInfo"/></xs:sequence></xs:complexType><xs:complexType name="ftDHKeyUserStatsArr"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="keystats" type="hr:ftDHKeyUserStats"/></xs:sequence></xs:complexType><xs:element name="ftGetStoredDHKeysInfoRequest"><xs:annotation><xs:documentation>
+                Message to obtain statistics about stored DHkeys from the server.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="users" type="hr:sipList"/><xs:element default="false" minOccurs="0" name="detailed" type="xs:boolean"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetStoredDHKeysInfoResponse"><xs:annotation><xs:documentation>
+                Message to obtain statistics about stored DHkeys from the server.
+                Note: could use just private types, but our translator to KSOAP
+                entities is not able to cope with internal classes.
+
+                Note: Choice should be here for UserInfo,Stats, but due to need
+                to have every type externaly defined we can live with this definition
+                also.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="info" type="hr:ftDHKeyUserInfoArr"/><xs:element minOccurs="0" name="stats" type="hr:ftDHKeyUserStatsArr"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetDHKeyRequest"><xs:annotation><xs:documentation>
+                Message to obtain one Diffie-Hellman key from the server for
+                particular user.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element minOccurs="0" name="protocolVersion" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetDHKeyResponse"><xs:annotation><xs:documentation>
+                Response on ftGetDHKeyRequest.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="user" type="hr:userSIP"/><xs:element name="aEncBlock" type="hr:binaryPayload"/><xs:element name="sEncBlock" type="hr:binaryPayload"/><xs:element name="sig1" type="hr:binaryPayload"/><xs:element name="created" type="xs:dateTime"/><xs:element name="expires" type="xs:dateTime"/><xs:element minOccurs="0" name="protocolVersion" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetDHKeyPart2Request"><xs:annotation><xs:documentation>
+                Message to obtain one Diffie-Hellman key from the server for
+                particular user. Second message to obtain nonce2.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="user" type="hr:userSIP"/><xs:element name="nonce1" type="hr:ftHash256"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetDHKeyPart2Response"><xs:annotation><xs:documentation>
+                Response on ftGetDHKeyPart2Request, returns nonce2 to the user.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="user" type="hr:userSIP"/><xs:element name="nonce2" type="hr:ftNonce"/><xs:element minOccurs="0" name="sig2" type="hr:binaryPayload"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="ftNonceList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="nonce" type="hr:ftNonce"/></xs:sequence></xs:complexType><xs:element name="ftDeleteFilesRequest"><xs:annotation><xs:documentation>
+                Message to delete files from the server.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element default="false" name="deleteAll" type="xs:boolean"/><xs:element minOccurs="0" name="nonceList" type="hr:ftNonceList"/><xs:element minOccurs="0" name="users" type="hr:sipList"/><xs:element minOccurs="0" name="deleteOlderThan" type="xs:dateTime"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftDeleteFilesResponse"><xs:annotation><xs:documentation>
+                Response to delete files from the server requests.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="ftStoredFile"><xs:annotation><xs:documentation>
+                Structure describing stored file archive together with meta files.
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="sender" type="hr:userSIP"/><xs:element name="sentDate" type="xs:dateTime"/><xs:element name="nonce2" type="hr:ftNonce"/><xs:element name="hashMeta" type="xs:string"/><xs:element name="hashPack" type="xs:string"/><xs:element name="sizeMeta" type="xs:long"/><xs:element name="sizePack" type="xs:long"/><xs:element name="key" type="hr:binaryPayload"/><xs:element minOccurs="0" name="protocolVersion" type="xs:int"/></xs:sequence></xs:complexType><xs:complexType name="ftStoredFileList"><xs:annotation><xs:documentation>
+                List of stored files
+            </xs:documentation></xs:annotation><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="file" type="hr:ftStoredFile"/></xs:sequence></xs:complexType><xs:element name="ftGetStoredFilesRequest"><xs:annotation><xs:documentation>
+                Message to retrieve all stored files on the server side.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element default="false" name="getAll" type="xs:boolean"/><xs:element minOccurs="0" name="users" type="hr:sipList"/><xs:element minOccurs="0" name="nonceList" type="hr:ftNonceList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="ftGetStoredFilesResponse"><xs:annotation><xs:documentation>
+                Response to delete files from the server requests.
+            </xs:documentation></xs:annotation><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="storedFile" type="hr:ftStoredFileList"/></xs:sequence></xs:complexType></xs:element><xs:element name="pairingRequestFetchRequest"><xs:complexType><xs:sequence><xs:element minOccurs="0" name="tstamp" type="xs:long"/><xs:element minOccurs="0" name="from" type="xs:string"/><xs:element default="false" name="fetchMyRequests" type="xs:boolean"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:simpleType name="pairingRequestResolutionEnum"><xs:annotation><xs:documentation>
+                Pairing request resolution
+            </xs:documentation></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="none"/><xs:enumeration value="accepted"/><xs:enumeration value="denied"/><xs:enumeration value="blocked"/><xs:enumeration value="reverted"/></xs:restriction></xs:simpleType><xs:complexType name="pairingRequestElement"><xs:annotation><xs:documentation>
+                One element in pairing request database
+            </xs:documentation></xs:annotation><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="owner" type="hr:userSIP"/><xs:element name="tstamp" type="xs:long"/><xs:element name="fromUser" type="hr:userSIP"/><xs:element name="fromUserResource" type="xs:string"/><xs:element minOccurs="0" name="dateLastChange" type="xs:dateTime"/><xs:element minOccurs="0" name="fromUserAux" type="xs:string"/><xs:element minOccurs="0" name="requestMessage" type="xs:string"/><xs:element minOccurs="0" name="requestAux" type="xs:string"/><xs:element name="resolution" type="hr:pairingRequestResolutionEnum"/><xs:element minOccurs="0" name="resolutionResource" type="xs:string"/><xs:element minOccurs="0" name="resolutionTstamp" type="xs:long"/><xs:element minOccurs="0" name="resolutionMessage" type="xs:string"/><xs:element minOccurs="0" name="resolutionAux" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="pairingRequestList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="elements" type="hr:pairingRequestElement"/></xs:sequence></xs:complexType><xs:element name="pairingRequestFetchResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="requestList" type="hr:pairingRequestList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pairingRequestInsertRequest"><xs:complexType><xs:sequence><xs:element name="to" type="xs:string"/><xs:element name="fromResource" type="xs:string"/><xs:element minOccurs="0" name="fromAux" type="xs:string"/><xs:element minOccurs="0" name="requestMessage" type="xs:string"/><xs:element minOccurs="0" name="requestAux" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pairingRequestInsertResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="pairingRequestUpdateElement"><xs:sequence><xs:element default="false" name="deleteRecord" type="xs:boolean"/><xs:element minOccurs="0" name="deleteOlderThan" type="xs:long"/><xs:element minOccurs="0" name="id" type="xs:long"/><xs:element minOccurs="0" name="owner" type="hr:userSIP"/><xs:element minOccurs="0" name="tstamp" type="xs:long"/><xs:element minOccurs="0" name="fromUser" type="hr:userSIP"/><xs:element minOccurs="0" name="fromUserResource" type="xs:string"/><xs:element minOccurs="0" name="fromUserAux" type="xs:string"/><xs:element minOccurs="0" name="requestMessage" type="xs:string"/><xs:element minOccurs="0" name="requestAux" type="xs:string"/><xs:element name="resolution" type="hr:pairingRequestResolutionEnum"/><xs:element minOccurs="0" name="resolutionResource" type="xs:string"/><xs:element minOccurs="0" name="resolutionTstamp" type="xs:long"/><xs:element minOccurs="0" name="resolutionMessage" type="xs:string"/><xs:element minOccurs="0" name="resolutionAux" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="pairingRequestUpdateList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="updates" type="hr:pairingRequestUpdateElement"/></xs:sequence></xs:complexType><xs:complexType name="pairingRequestUpdateResultList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="errCodes" type="xs:int"/></xs:sequence></xs:complexType><xs:element name="pairingRequestUpdateRequest"><xs:complexType><xs:sequence><xs:element name="updateList" type="hr:pairingRequestUpdateList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pairingRequestUpdateResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="resultList" type="hr:pairingRequestUpdateResultList"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="trialEventSaveRequest"><xs:complexType><xs:sequence><xs:element default="-1" name="etype" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="trialEventSaveResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="trialEventGetRequest"><xs:complexType><xs:sequence><xs:element minOccurs="0" name="etype" type="xs:int"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="trialEventGetResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="respJSON" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pushRequestRequest"><xs:complexType><xs:sequence><xs:element name="reqJSON" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pushRequestResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="responseJSON" type="xs:string"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pushAckRequest"><xs:complexType><xs:sequence><xs:element name="reqJSON" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="pushAckResponse"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="responseJSON" type="xs:string"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authStateSaveV1Request"><xs:complexType><xs:sequence><xs:element name="secret" type="xs:string"/><xs:element name="nonce" type="xs:string"/><xs:element name="appVersionCode" type="xs:long"/><xs:element name="appVersion" type="xs:string"/><xs:element minOccurs="0" name="identifier" type="xs:string"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authStateSaveV1Response"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element minOccurs="0" name="timestamp" type="xs:long"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authStateFetchV1Request"><xs:complexType><xs:sequence><xs:element name="nonce" type="xs:string"/><xs:element name="userName" type="xs:string"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="authStateFetchV1Response"><xs:complexType><xs:sequence><xs:element name="errCode" type="xs:int"/><xs:element name="secret" type="xs:string"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountingSaveRequest"><xs:complexType><xs:sequence><xs:element name="requestBody" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountingSaveResponse"><xs:complexType><xs:sequence><xs:element default="0" name="errCode" type="xs:int"/><xs:element default="" name="errText" type="xs:string"/><xs:element name="responseBody" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountingFetchRequest"><xs:complexType><xs:sequence><xs:element name="requestBody" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="accountingFetchResponse"><xs:complexType><xs:sequence><xs:element default="0" name="errCode" type="xs:int"/><xs:element default="" name="errText" type="xs:string"/><xs:element name="responseBody" type="xs:string"/><xs:element minOccurs="0" name="version" type="xs:int"/><xs:element minOccurs="0" name="auxVersion" type="xs:int"/><xs:element minOccurs="0" name="auxJSON" type="xs:string"/></xs:sequence></xs:complexType></xs:element></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="accountingFetchRequest">
+    <wsdl:part element="sch:accountingFetchRequest" name="accountingFetchRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgroupUpdateRequest">
+    <wsdl:part element="sch:cgroupUpdateRequest" name="cgroupUpdateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestUpdateResponse">
+    <wsdl:part element="sch:pairingRequestUpdateResponse" name="pairingRequestUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="passwordChangeV2Response">
+    <wsdl:part element="sch:passwordChangeV2Response" name="passwordChangeV2Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCertificateRequest">
+    <wsdl:part element="sch:getCertificateRequest" name="getCertificateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestInsertRequest">
+    <wsdl:part element="sch:pairingRequestInsertRequest" name="pairingRequestInsertRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftAddDHKeysRequest">
+    <wsdl:part element="sch:ftAddDHKeysRequest" name="ftAddDHKeysRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetDHKeyRequest">
+    <wsdl:part element="sch:ftGetDHKeyRequest" name="ftGetDHKeyRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftDeleteFilesRequest">
+    <wsdl:part element="sch:ftDeleteFilesRequest" name="ftDeleteFilesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCertificateResponse">
+    <wsdl:part element="sch:getCertificateResponse" name="getCertificateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whitelistRequest">
+    <wsdl:part element="sch:whitelistRequest" name="whitelistRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whitelistGetRequest">
+    <wsdl:part element="sch:whitelistGetRequest" name="whitelistGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetStoredFilesResponse">
+    <wsdl:part element="sch:ftGetStoredFilesResponse" name="ftGetStoredFilesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signCertificateV2Request">
+    <wsdl:part element="sch:signCertificateV2Request" name="signCertificateV2Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generalResponse">
+    <wsdl:part element="sch:generalResponse" name="generalResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOneTimeTokenRequest">
+    <wsdl:part element="sch:getOneTimeTokenRequest" name="getOneTimeTokenRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pushRequestRequest">
+    <wsdl:part element="sch:pushRequestRequest" name="pushRequestRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftRemoveDHKeysRequest">
+    <wsdl:part element="sch:ftRemoveDHKeysRequest" name="ftRemoveDHKeysRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whitelistGetResponse">
+    <wsdl:part element="sch:whitelistGetResponse" name="whitelistGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clistChangeV2Response">
+    <wsdl:part element="sch:clistChangeV2Response" name="clistChangeV2Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authStateSaveV1Request">
+    <wsdl:part element="sch:authStateSaveV1Request" name="authStateSaveV1Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contactlistChangeResponse">
+    <wsdl:part element="sch:contactlistChangeResponse" name="contactlistChangeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftAddDHKeysResponse">
+    <wsdl:part element="sch:ftAddDHKeysResponse" name="ftAddDHKeysResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestUpdateRequest">
+    <wsdl:part element="sch:pairingRequestUpdateRequest" name="pairingRequestUpdateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signCertificateResponse">
+    <wsdl:part element="sch:signCertificateResponse" name="signCertificateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestInsertResponse">
+    <wsdl:part element="sch:pairingRequestInsertResponse" name="pairingRequestInsertResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetDHKeyPart2Response">
+    <wsdl:part element="sch:ftGetDHKeyPart2Response" name="ftGetDHKeyPart2Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contactlistGetResponse">
+    <wsdl:part element="sch:contactlistGetResponse" name="contactlistGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authStateSaveV1Response">
+    <wsdl:part element="sch:authStateSaveV1Response" name="authStateSaveV1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestFetchResponse">
+    <wsdl:part element="sch:pairingRequestFetchResponse" name="pairingRequestFetchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgroupGetResponse">
+    <wsdl:part element="sch:cgroupGetResponse" name="cgroupGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trialEventSaveResponse">
+    <wsdl:part element="sch:trialEventSaveResponse" name="trialEventSaveResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pairingRequestFetchRequest">
+    <wsdl:part element="sch:pairingRequestFetchRequest" name="pairingRequestFetchRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generalRequest">
+    <wsdl:part element="sch:generalRequest" name="generalRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pushRequestResponse">
+    <wsdl:part element="sch:pushRequestResponse" name="pushRequestResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="passwordChangeV2Request">
+    <wsdl:part element="sch:passwordChangeV2Request" name="passwordChangeV2Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetDHKeyResponse">
+    <wsdl:part element="sch:ftGetDHKeyResponse" name="ftGetDHKeyResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trialEventGetResponse">
+    <wsdl:part element="sch:trialEventGetResponse" name="trialEventGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contactlistGetRequest">
+    <wsdl:part element="sch:contactlistGetRequest" name="contactlistGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountSettingsUpdateV1Request">
+    <wsdl:part element="sch:accountSettingsUpdateV1Request" name="accountSettingsUpdateV1Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authCheckV3Response">
+    <wsdl:part element="sch:authCheckV3Response" name="authCheckV3Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contactlistChangeRequest">
+    <wsdl:part element="sch:contactlistChangeRequest" name="contactlistChangeRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clistGetV2Request">
+    <wsdl:part element="sch:clistGetV2Request" name="clistGetV2Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetStoredFilesRequest">
+    <wsdl:part element="sch:ftGetStoredFilesRequest" name="ftGetStoredFilesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pushAckResponse">
+    <wsdl:part element="sch:pushAckResponse" name="pushAckResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signCertificateV2Response">
+    <wsdl:part element="sch:signCertificateV2Response" name="signCertificateV2Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signCertificateRequest">
+    <wsdl:part element="sch:signCertificateRequest" name="signCertificateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountingSaveRequest">
+    <wsdl:part element="sch:accountingSaveRequest" name="accountingSaveRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetStoredDHKeysInfoResponse">
+    <wsdl:part element="sch:ftGetStoredDHKeysInfoResponse" name="ftGetStoredDHKeysInfoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountInfoV1Request">
+    <wsdl:part element="sch:accountInfoV1Request" name="accountInfoV1Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgroupUpdateResponse">
+    <wsdl:part element="sch:cgroupUpdateResponse" name="cgroupUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOneTimeTokenResponse">
+    <wsdl:part element="sch:getOneTimeTokenResponse" name="getOneTimeTokenResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clistGetV2Response">
+    <wsdl:part element="sch:clistGetV2Response" name="clistGetV2Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="clistChangeV2Request">
+    <wsdl:part element="sch:clistChangeV2Request" name="clistChangeV2Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountingFetchResponse">
+    <wsdl:part element="sch:accountingFetchResponse" name="accountingFetchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authCheckV3Request">
+    <wsdl:part element="sch:authCheckV3Request" name="authCheckV3Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pushAckRequest">
+    <wsdl:part element="sch:pushAckRequest" name="pushAckRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftRemoveDHKeysResponse">
+    <wsdl:part element="sch:ftRemoveDHKeysResponse" name="ftRemoveDHKeysResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authStateFetchV1Request">
+    <wsdl:part element="sch:authStateFetchV1Request" name="authStateFetchV1Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trialEventSaveRequest">
+    <wsdl:part element="sch:trialEventSaveRequest" name="trialEventSaveRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountingSaveResponse">
+    <wsdl:part element="sch:accountingSaveResponse" name="accountingSaveResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountInfoV1Response">
+    <wsdl:part element="sch:accountInfoV1Response" name="accountInfoV1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountSettingsUpdateV1Response">
+    <wsdl:part element="sch:accountSettingsUpdateV1Response" name="accountSettingsUpdateV1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetDHKeyPart2Request">
+    <wsdl:part element="sch:ftGetDHKeyPart2Request" name="ftGetDHKeyPart2Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftDeleteFilesResponse">
+    <wsdl:part element="sch:ftDeleteFilesResponse" name="ftDeleteFilesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgroupGetRequest">
+    <wsdl:part element="sch:cgroupGetRequest" name="cgroupGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authStateFetchV1Response">
+    <wsdl:part element="sch:authStateFetchV1Response" name="authStateFetchV1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trialEventGetRequest">
+    <wsdl:part element="sch:trialEventGetRequest" name="trialEventGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whitelistResponse">
+    <wsdl:part element="sch:whitelistResponse" name="whitelistResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ftGetStoredDHKeysInfoRequest">
+    <wsdl:part element="sch:ftGetStoredDHKeysInfoRequest" name="ftGetStoredDHKeysInfoRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PhoenixPort">
+    <wsdl:operation name="accountingFetch">
+      <wsdl:input message="tns:accountingFetchRequest" name="accountingFetchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:accountingFetchResponse" name="accountingFetchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgroupUpdate">
+      <wsdl:input message="tns:cgroupUpdateRequest" name="cgroupUpdateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:cgroupUpdateResponse" name="cgroupUpdateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestUpdate">
+      <wsdl:input message="tns:pairingRequestUpdateRequest" name="pairingRequestUpdateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pairingRequestUpdateResponse" name="pairingRequestUpdateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="passwordChangeV2">
+      <wsdl:input message="tns:passwordChangeV2Request" name="passwordChangeV2Request">
+    </wsdl:input>
+      <wsdl:output message="tns:passwordChangeV2Response" name="passwordChangeV2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCertificate">
+      <wsdl:input message="tns:getCertificateRequest" name="getCertificateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCertificateResponse" name="getCertificateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestInsert">
+      <wsdl:input message="tns:pairingRequestInsertRequest" name="pairingRequestInsertRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pairingRequestInsertResponse" name="pairingRequestInsertResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftAddDHKeys">
+      <wsdl:input message="tns:ftAddDHKeysRequest" name="ftAddDHKeysRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftAddDHKeysResponse" name="ftAddDHKeysResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetDHKey">
+      <wsdl:input message="tns:ftGetDHKeyRequest" name="ftGetDHKeyRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftGetDHKeyResponse" name="ftGetDHKeyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftDeleteFiles">
+      <wsdl:input message="tns:ftDeleteFilesRequest" name="ftDeleteFilesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftDeleteFilesResponse" name="ftDeleteFilesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whitelist">
+      <wsdl:input message="tns:whitelistRequest" name="whitelistRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:whitelistResponse" name="whitelistResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whitelistGet">
+      <wsdl:input message="tns:whitelistGetRequest" name="whitelistGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:whitelistGetResponse" name="whitelistGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetStoredFiles">
+      <wsdl:input message="tns:ftGetStoredFilesRequest" name="ftGetStoredFilesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftGetStoredFilesResponse" name="ftGetStoredFilesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signCertificateV2">
+      <wsdl:input message="tns:signCertificateV2Request" name="signCertificateV2Request">
+    </wsdl:input>
+      <wsdl:output message="tns:signCertificateV2Response" name="signCertificateV2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="general">
+      <wsdl:input message="tns:generalRequest" name="generalRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:generalResponse" name="generalResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOneTimeToken">
+      <wsdl:input message="tns:getOneTimeTokenRequest" name="getOneTimeTokenRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getOneTimeTokenResponse" name="getOneTimeTokenResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pushRequest">
+      <wsdl:input message="tns:pushRequestRequest" name="pushRequestRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pushRequestResponse" name="pushRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftRemoveDHKeys">
+      <wsdl:input message="tns:ftRemoveDHKeysRequest" name="ftRemoveDHKeysRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftRemoveDHKeysResponse" name="ftRemoveDHKeysResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clistChangeV2">
+      <wsdl:input message="tns:clistChangeV2Request" name="clistChangeV2Request">
+    </wsdl:input>
+      <wsdl:output message="tns:clistChangeV2Response" name="clistChangeV2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authStateSaveV1">
+      <wsdl:input message="tns:authStateSaveV1Request" name="authStateSaveV1Request">
+    </wsdl:input>
+      <wsdl:output message="tns:authStateSaveV1Response" name="authStateSaveV1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="contactlistChange">
+      <wsdl:input message="tns:contactlistChangeRequest" name="contactlistChangeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:contactlistChangeResponse" name="contactlistChangeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signCertificate">
+      <wsdl:input message="tns:signCertificateRequest" name="signCertificateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:signCertificateResponse" name="signCertificateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetDHKeyPart2">
+      <wsdl:input message="tns:ftGetDHKeyPart2Request" name="ftGetDHKeyPart2Request">
+    </wsdl:input>
+      <wsdl:output message="tns:ftGetDHKeyPart2Response" name="ftGetDHKeyPart2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="contactlistGet">
+      <wsdl:input message="tns:contactlistGetRequest" name="contactlistGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:contactlistGetResponse" name="contactlistGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestFetch">
+      <wsdl:input message="tns:pairingRequestFetchRequest" name="pairingRequestFetchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pairingRequestFetchResponse" name="pairingRequestFetchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgroupGet">
+      <wsdl:input message="tns:cgroupGetRequest" name="cgroupGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:cgroupGetResponse" name="cgroupGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trialEventSave">
+      <wsdl:input message="tns:trialEventSaveRequest" name="trialEventSaveRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:trialEventSaveResponse" name="trialEventSaveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trialEventGet">
+      <wsdl:input message="tns:trialEventGetRequest" name="trialEventGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:trialEventGetResponse" name="trialEventGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountSettingsUpdateV1">
+      <wsdl:input message="tns:accountSettingsUpdateV1Request" name="accountSettingsUpdateV1Request">
+    </wsdl:input>
+      <wsdl:output message="tns:accountSettingsUpdateV1Response" name="accountSettingsUpdateV1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authCheckV3">
+      <wsdl:input message="tns:authCheckV3Request" name="authCheckV3Request">
+    </wsdl:input>
+      <wsdl:output message="tns:authCheckV3Response" name="authCheckV3Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clistGetV2">
+      <wsdl:input message="tns:clistGetV2Request" name="clistGetV2Request">
+    </wsdl:input>
+      <wsdl:output message="tns:clistGetV2Response" name="clistGetV2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pushAck">
+      <wsdl:input message="tns:pushAckRequest" name="pushAckRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pushAckResponse" name="pushAckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountingSave">
+      <wsdl:input message="tns:accountingSaveRequest" name="accountingSaveRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:accountingSaveResponse" name="accountingSaveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetStoredDHKeysInfo">
+      <wsdl:input message="tns:ftGetStoredDHKeysInfoRequest" name="ftGetStoredDHKeysInfoRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ftGetStoredDHKeysInfoResponse" name="ftGetStoredDHKeysInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountInfoV1">
+      <wsdl:input message="tns:accountInfoV1Request" name="accountInfoV1Request">
+    </wsdl:input>
+      <wsdl:output message="tns:accountInfoV1Response" name="accountInfoV1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authStateFetchV1">
+      <wsdl:input message="tns:authStateFetchV1Request" name="authStateFetchV1Request">
+    </wsdl:input>
+      <wsdl:output message="tns:authStateFetchV1Response" name="authStateFetchV1Response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PhoenixPortSoap11" type="tns:PhoenixPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="accountingFetch">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="accountingFetchRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="accountingFetchResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgroupUpdate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cgroupUpdateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgroupUpdateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestUpdate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pairingRequestUpdateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pairingRequestUpdateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="passwordChangeV2">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="passwordChangeV2Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="passwordChangeV2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCertificate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCertificateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCertificateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestInsert">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pairingRequestInsertRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pairingRequestInsertResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftAddDHKeys">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftAddDHKeysRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftAddDHKeysResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetDHKey">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftGetDHKeyRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftGetDHKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftDeleteFiles">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftDeleteFilesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftDeleteFilesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whitelist">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="whitelistRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="whitelistResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whitelistGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="whitelistGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="whitelistGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetStoredFiles">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftGetStoredFilesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftGetStoredFilesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signCertificateV2">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="signCertificateV2Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="signCertificateV2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="general">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="generalRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generalResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOneTimeToken">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getOneTimeTokenRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOneTimeTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pushRequest">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pushRequestRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pushRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftRemoveDHKeys">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftRemoveDHKeysRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftRemoveDHKeysResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clistChangeV2">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="clistChangeV2Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="clistChangeV2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authStateSaveV1">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="authStateSaveV1Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authStateSaveV1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="contactlistChange">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="contactlistChangeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="contactlistChangeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signCertificate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="signCertificateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="signCertificateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetDHKeyPart2">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftGetDHKeyPart2Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftGetDHKeyPart2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="contactlistGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="contactlistGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="contactlistGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pairingRequestFetch">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pairingRequestFetchRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pairingRequestFetchResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cgroupGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cgroupGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cgroupGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trialEventSave">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="trialEventSaveRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="trialEventSaveResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trialEventGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="trialEventGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="trialEventGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountSettingsUpdateV1">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="accountSettingsUpdateV1Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="accountSettingsUpdateV1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authCheckV3">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="authCheckV3Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authCheckV3Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="clistGetV2">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="clistGetV2Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="clistGetV2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pushAck">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pushAckRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pushAckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountingSave">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="accountingSaveRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="accountingSaveResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ftGetStoredDHKeysInfo">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ftGetStoredDHKeysInfoRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ftGetStoredDHKeysInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountInfoV1">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="accountInfoV1Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="accountInfoV1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authStateFetchV1">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="authStateFetchV1Request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authStateFetchV1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PhoenixPortService">
+    <wsdl:port binding="tns:PhoenixPortSoap11" name="PhoenixPortSoap11">
+      <soap:address location="https://89.29.122.60:18442/phoenix/phoenixService/phoenix.wsdl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

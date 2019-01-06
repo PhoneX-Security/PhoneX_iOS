@@ -1,0 +1,7 @@
+[submodule "dependency/XMPPFramework/XMPPFramework"]
+	path = dependency/XMPPFramework/XMPPFramework
+	url = git@bitbucket.org:phonex-devs/phonexiosxmpp.git
+[submodule "dependency/zrtpcpp/sources/zrtp"]
+	path = dependency/zrtpcpp/sources/zrtp
+	url = git@bitbucket.org:phonex-devs/phonexzrtp.git
+	branch = phonexPatched
